@@ -30,8 +30,7 @@ class InputTextWidget extends StatelessWidget {
           style: TextStyles.input,
           decoration: InputDecoration(
             labelText: label,
-            border: InputBorder.none,
-            fillColor: AppColors.greyInput,
+            // fillColor: AppColors.greyInput,
             filled: true,
           ),
         ),

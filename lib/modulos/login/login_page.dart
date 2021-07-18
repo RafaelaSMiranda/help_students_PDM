@@ -19,7 +19,6 @@ class _LoginPageState extends State<LoginPage> {
     final size = MediaQuery.of(context).size;
     // PEGAR O TAMANHO DA TELA DO APARELHO
     return Scaffold(
-      backgroundColor: AppColors.background,
       body: Container(
         width: size.width,
         height: size.height,
