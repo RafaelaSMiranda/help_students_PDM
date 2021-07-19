@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
               color: AppColors.primary,
             ),
             Positioned(
-              bottom: size.height * 0.76,
+              bottom: size.height * 0.70,
               child: Row(
                 children: <Widget>[
                   Padding(
@@ -134,6 +134,19 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.grey[500],
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            title: Text('Settings'),
+          )
+        ],
       ),
     );
   }
