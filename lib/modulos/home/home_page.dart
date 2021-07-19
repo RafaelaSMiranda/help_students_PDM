@@ -1,9 +1,11 @@
-import 'package:help_students/modulos/components/criar_table.widget.dart';
-import 'package:help_students/modulos/login/login_page.dart';
+import 'package:help_students/modulos/components/create_table.widget.dart';
+import 'package:help_students/modulos/components/input_text_widget.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 //
 class HomePage extends StatefulWidget {
@@ -130,24 +132,62 @@ class _HomePageState extends State<HomePage> {
             ),
             Positioned(
               top: size.height * 0.15,
-              child: CriarTableWidget(),
+              child: CreateTableWidget(),
             ),
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.grey[500],
+        currentIndex: 0,
+        backgroundColor: Colors.grey[700],
         items: [
           BottomNavigationBarItem(
+            backgroundColor: Colors.white,
             icon: Icon(Icons.home),
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
+            backgroundColor: Colors.white,
             icon: Icon(Icons.settings),
             title: Text('Settings'),
           )
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+          elevation: 10.0,
+          backgroundColor: AppColors.primary,
+          child: Icon(Icons.add),
+          onPressed: () {
+            _createTarefa(context);
+          }),
     );
+  }
+}
+
+_createTarefa(context) {
+  {
+    Alert(
+        context: context,
+        title: "Nova tarefa",
+        content: Padding(
+          padding: EdgeInsets.only(top: 20),
+          child: Column(
+            children: <Widget>[
+              Text(
+                "Matéria",
+                textAlign: TextAlign.left,
+                style: TextStyles.input,
+              ),
+              InputTextWidget(label: "", onChanged: (value) {}),
+              Text(
+                "Tarefa",
+                textAlign: TextAlign.left,
+                style: TextStyles.input,
+              ),
+              InputTextWidget(label: "", onChanged: (value) {}),
+            ],
+          ),
+        ),
+        buttons: []).show();
   }
 }

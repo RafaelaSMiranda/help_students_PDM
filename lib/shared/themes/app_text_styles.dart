@@ -16,8 +16,7 @@ class TextStyles {
   );
 
   static final input = TextStyle(
-    fontSize: 20,
-    color: AppColors.grey,
+    fontSize: 15,
   );
   static final curso = TextStyle(
     fontSize: 15,
