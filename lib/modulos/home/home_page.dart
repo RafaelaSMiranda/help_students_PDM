@@ -1,3 +1,4 @@
+import 'package:help_students/modulos/components/criar_table.widget.dart';
 import 'package:help_students/modulos/login/login_page.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_images.dart';
@@ -23,6 +24,14 @@ class _HomePageState extends State<HomePage> {
         title: Text(
           'Home',
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: new Icon(Icons.logout_outlined),
+            onPressed: () {
+              Navigator.pushNamed(context, '/login');
+            },
+          ),
+        ],
       ),
       drawer: Drawer(
         elevation: 16.0,
@@ -116,9 +125,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ]),
-                  Container(),
                 ],
               ),
+            ),
+            Positioned(
+              top: size.height * 0.15,
+              child: CriarTableWidget(),
             ),
           ],
         ),
