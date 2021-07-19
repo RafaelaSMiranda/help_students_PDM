@@ -25,7 +25,7 @@ class CriarTableWidget extends StatelessWidget {
         criarLinha(
           "Linguagens,Lista 01,18-06-2021,Icon",
         ),
-        criarLinha("Discreta,Lista 01,18-06-2021,Verde"),
+        criarLinha("Discreta,Lista 01,18-06-2021,Icon"),
       ],
     );
   }
@@ -50,14 +50,15 @@ criarTitulo(String listaNomes) {
 criarLinha(String listaNomes) {
   return TableRow(
     children: listaNomes.split(',').map((name) {
-      return Container(
-        alignment: Alignment.center,
-        child: Text(
-          name,
-          style: TextStyle(fontSize: 15),
-        ),
-        padding: const EdgeInsets.only(top: 11, bottom: 11),
-      );
+      if (name == "Icon") {
+        return new ListTile(
+          trailing: new Icon(Icons.circle),
+        );
+      } else {
+        return new ListTile(
+          title: new Text(name, style: TextStyle(fontSize: 12)),
+        );
+      }
     }).toList(),
   );
 }
