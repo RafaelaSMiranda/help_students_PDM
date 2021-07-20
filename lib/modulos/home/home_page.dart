@@ -1,3 +1,4 @@
+import 'package:help_students/modulos/components/button_widget.dart';
 import 'package:help_students/modulos/components/create_table.widget.dart';
 import 'package:help_students/modulos/components/input_text_widget.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
@@ -185,6 +186,17 @@ _createTarefa(context) {
                 style: TextStyles.input,
               ),
               InputTextWidget(label: "", onChanged: (value) {}),
+              Text(
+                "Data",
+                textAlign: TextAlign.left,
+                style: TextStyles.input,
+              ),
+              InputTextWidget(label: "", onChanged: (value) {}),
+              ButtonWidget(
+                  label: "Cadastrar",
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home');
+                  })
             ],
           ),
         ),
