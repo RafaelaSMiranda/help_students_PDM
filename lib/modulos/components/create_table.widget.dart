@@ -94,24 +94,9 @@ _atualizarTarefa(context) {
           padding: EdgeInsets.only(top: 20),
           child: Column(
             children: <Widget>[
-              Text(
-                "Matéria",
-                textAlign: TextAlign.left,
-                style: TextStyles.input,
-              ),
-              InputTextWidget(label: "", onChanged: (value) {}),
-              Text(
-                "Tarefa",
-                textAlign: TextAlign.left,
-                style: TextStyles.input,
-              ),
-              InputTextWidget(label: "", onChanged: (value) {}),
-              Text(
-                "Data",
-                textAlign: TextAlign.left,
-                style: TextStyles.input,
-              ),
-              InputTextWidget(label: "", onChanged: (value) {}),
+              InputTextWidget(label: "Matéria", onChanged: (value) {}),
+              InputTextWidget(label: "Tarefa", onChanged: (value) {}),
+              InputTextWidget(label: "Data", onChanged: (value) {}),
               ButtonWidget(
                   label: "Atualizar",
                   onPressed: () {
