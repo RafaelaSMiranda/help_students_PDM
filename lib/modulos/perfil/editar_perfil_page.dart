@@ -49,7 +49,8 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 right: 50,
                 child: Column(
                   children: [
-                    InputTextWidget(label: "Curso", onChanged: (value) {})
+                    InputTextWidget(
+                        label: "Curso", onChanged: (value) {}, senha: false)
                   ],
                 )),
             Positioned(
@@ -58,7 +59,8 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 right: 50,
                 child: Column(
                   children: [
-                    InputTextWidget(label: "Usuario", onChanged: (value) {})
+                    InputTextWidget(
+                        label: "Usuario", onChanged: (value) {}, senha: false)
                   ],
                 )),
             Positioned(
@@ -67,7 +69,8 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 right: 50,
                 child: Column(
                   children: [
-                    InputTextWidget(label: "Senha", onChanged: (value) {})
+                    InputTextWidget(
+                        label: "Senha", onChanged: (value) {}, senha: true)
                   ],
                 )),
             Positioned(

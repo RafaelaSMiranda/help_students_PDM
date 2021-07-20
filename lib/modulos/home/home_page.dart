@@ -180,9 +180,12 @@ _createTarefa(context) {
           padding: EdgeInsets.only(top: 20),
           child: Column(
             children: <Widget>[
-              InputTextWidget(label: "Matéria", onChanged: (value) {}),
-              InputTextWidget(label: "Tarefa", onChanged: (value) {}),
-              InputTextWidget(label: "Data", onChanged: (value) {}),
+              InputTextWidget(
+                  label: "Matéria", onChanged: (value) {}, senha: false),
+              InputTextWidget(
+                  label: "Tarefa", onChanged: (value) {}, senha: false),
+              InputTextWidget(
+                  label: "Data", onChanged: (value) {}, senha: false),
               ButtonWidget(
                   label: "Cadastrar",
                   onPressed: () {
