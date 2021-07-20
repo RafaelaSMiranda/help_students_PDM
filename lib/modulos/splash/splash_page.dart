@@ -1,17 +1,35 @@
+import 'dart:async';
+
+import 'package:help_students/modulos/login/login_page.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
 
-//
-class SplashPage extends StatelessWidget {
-  const SplashPage({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => LoginPage()),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    @override
     final size = MediaQuery.of(context).size;
-    // PEGAR O TAMANHO DA TELA DO APARELHO
-
     return Scaffold(
       body: Container(
         width: size.width,
