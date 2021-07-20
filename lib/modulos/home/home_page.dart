@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon: new Icon(Icons.logout_outlined),
             onPressed: () {
-              Navigator.pushNamed(context, '/login');
+              _sair(context);
             },
           ),
         ],
@@ -71,6 +71,9 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: new Text("Remover todas tarefas"),
               leading: new Icon(Icons.delete_forever),
+              onTap: () {
+                _removerTodasTarefas(context);
+              },
             ),
             Divider(
               height: 0.1,
@@ -79,7 +82,7 @@ class _HomePageState extends State<HomePage> {
               title: new Text("Sair"),
               leading: new Icon(Icons.logout_outlined),
               onTap: () {
-                Navigator.pushNamed(context, '/login');
+                _sair(context);
               },
             ),
           ],
@@ -194,6 +197,48 @@ _createTarefa(context) {
               InputTextWidget(label: "", onChanged: (value) {}),
               ButtonWidget(
                   label: "Cadastrar",
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home');
+                  })
+            ],
+          ),
+        ),
+        buttons: []).show();
+  }
+}
+
+_sair(context) {
+  {
+    Alert(
+        context: context,
+        title: "Tem certeza que deseja sair?",
+        content: Padding(
+          padding: EdgeInsets.only(top: 30),
+          child: Column(
+            children: <Widget>[
+              ButtonWidget(
+                  label: "Sair",
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login');
+                  })
+            ],
+          ),
+        ),
+        buttons: []).show();
+  }
+}
+
+_removerTodasTarefas(context) {
+  {
+    Alert(
+        context: context,
+        title: "Tem certeza que deseja remover todas as tarefas?",
+        content: Padding(
+          padding: EdgeInsets.only(top: 30),
+          child: Column(
+            children: <Widget>[
+              ButtonWidget(
+                  label: "Remover",
                   onPressed: () {
                     Navigator.pushNamed(context, '/home');
                   })

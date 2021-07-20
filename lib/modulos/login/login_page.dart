@@ -1,6 +1,5 @@
 import 'package:help_students/modulos/components/button_widget.dart';
 import 'package:help_students/modulos/components/input_text_widget.dart';
-import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
@@ -29,8 +28,8 @@ class _LoginPageState extends State<LoginPage> {
                 left: 0,
                 right: 0,
                 child: Center(
-                    child:
-                        Image.asset(AppImages.logo, width: 350, height: 350))),
+                    child: Image.asset(AppImages.avatar,
+                        width: 350, height: 350))),
             Positioned(
               bottom: size.height * 0.50,
               left: 0,
