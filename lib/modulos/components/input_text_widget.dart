@@ -20,21 +20,22 @@ class InputTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextFormField(
-          initialValue: initialValue,
-          validator: validator,
-          controller: controller,
-          onChanged: onChanged,
-          style: TextStyles.input,
-          decoration: InputDecoration(
-            labelText: label,
-            // fillColor: AppColors.greyInput,
-            filled: true,
-          ),
-        ),
-      ],
-    );
+    return Padding(
+        padding: EdgeInsets.only(bottom: 10, top: 10),
+        child: Column(
+          children: [
+            TextFormField(
+              initialValue: initialValue,
+              validator: validator,
+              controller: controller,
+              onChanged: onChanged,
+              style: TextStyles.input,
+              decoration: InputDecoration(
+                labelText: label,
+                filled: true,
+              ),
+            ),
+          ],
+        ));
   }
 }
