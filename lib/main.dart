@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         // darkTheme: ThemeData.dark(),
         title: 'Help Students',
         theme: ThemeData(
-          brightness: Brightness.light,
+          brightness: Brightness.dark,
           primarySwatch: Colors.green,
           accentColor: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity,
