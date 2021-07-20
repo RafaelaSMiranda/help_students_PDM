@@ -54,7 +54,8 @@ class _LoginPageState extends State<LoginPage> {
                 right: 50,
                 child: Column(
                   children: [
-                    InputTextWidget(label: "Usuário", onChanged: (value) {})
+                    InputTextWidget(
+                        label: "Usuário", onChanged: (value) {}, senha: false)
                   ],
                 )),
             Positioned(
@@ -63,7 +64,8 @@ class _LoginPageState extends State<LoginPage> {
                 right: 50,
                 child: Column(
                   children: [
-                    InputTextWidget(label: "Senha", onChanged: (value) {})
+                    InputTextWidget(
+                        label: "Senha", onChanged: (value) {}, senha: true)
                   ],
                 )),
             Positioned(

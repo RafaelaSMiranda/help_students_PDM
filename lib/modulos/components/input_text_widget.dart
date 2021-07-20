@@ -4,6 +4,7 @@ import 'package:help_students/shared/themes/app_text_styles.dart';
 
 class InputTextWidget extends StatelessWidget {
   final String label;
+  final bool senha;
   final String? initialValue;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
@@ -12,6 +13,7 @@ class InputTextWidget extends StatelessWidget {
   const InputTextWidget({
     Key? key,
     required this.label,
+    required this.senha,
     this.initialValue,
     this.validator,
     this.controller,
@@ -26,6 +28,7 @@ class InputTextWidget extends StatelessWidget {
           children: [
             TextFormField(
               initialValue: initialValue,
+              obscureText: senha,
               validator: validator,
               controller: controller,
               onChanged: onChanged,
