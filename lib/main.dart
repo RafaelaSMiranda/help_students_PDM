@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:help_students/modulos/Cadastro/cadastroPage.dart';
 import 'package:help_students/modulos/home/home_page.dart';
 import 'package:help_students/modulos/login/login_page.dart';
+import 'package:help_students/modulos/perfil/editar_perfil_page.dart';
 import 'package:help_students/modulos/splash/splash_page.dart';
 import 'modulos/Cadastro/cadastroPage.dart';
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           "/login": (context) => LoginPage(),
           "/home": (context) => HomePage(),
           "/cadastro": (context) => CadastroPage(),
-          // "/login": (context) => LoginPage(),
+          "/editPerfil": (context) => EditarPerfil(),
         });
   }
 }

@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
               title: new Text("Editar perfil"),
               leading: new Icon(Icons.account_circle),
               onTap: () {
-                Navigator.pushNamed(context, '/cadastro');
+                Navigator.pushNamed(context, '/editPerfil');
               },
             ),
             Divider(
