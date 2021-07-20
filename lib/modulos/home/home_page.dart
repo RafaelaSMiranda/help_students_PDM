@@ -1,9 +1,12 @@
-import 'package:help_students/modulos/components/criar_table.widget.dart';
-import 'package:help_students/modulos/login/login_page.dart';
+import 'package:help_students/modulos/components/button_widget.dart';
+import 'package:help_students/modulos/components/create_table.widget.dart';
+import 'package:help_students/modulos/components/input_text_widget.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 //
 class HomePage extends StatefulWidget {
@@ -28,7 +31,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon: new Icon(Icons.logout_outlined),
             onPressed: () {
-              Navigator.pushNamed(context, '/login');
+              _sair(context);
             },
           ),
         ],
@@ -54,6 +57,9 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: new Text("Editar perfil"),
               leading: new Icon(Icons.account_circle),
+              onTap: () {
+                Navigator.pushNamed(context, '/cadastro');
+              },
             ),
             Divider(
               height: 0.1,
@@ -68,6 +74,9 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: new Text("Remover todas tarefas"),
               leading: new Icon(Icons.delete_forever),
+              onTap: () {
+                _removerTodasTarefas(context);
+              },
             ),
             Divider(
               height: 0.1,
@@ -76,7 +85,7 @@ class _HomePageState extends State<HomePage> {
               title: new Text("Sair"),
               leading: new Icon(Icons.logout_outlined),
               onTap: () {
-                Navigator.pushNamed(context, '/login');
+                _sair(context);
               },
             ),
           ],
@@ -93,7 +102,7 @@ class _HomePageState extends State<HomePage> {
               color: AppColors.primary,
             ),
             Positioned(
-              bottom: size.height * 0.76,
+              bottom: size.height * 0.70,
               child: Row(
                 children: <Widget>[
                   Padding(
@@ -130,11 +139,115 @@ class _HomePageState extends State<HomePage> {
             ),
             Positioned(
               top: size.height * 0.15,
-              child: CriarTableWidget(),
+              child: CreateTableWidget(),
             ),
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        backgroundColor: Colors.grey[700],
+        items: [
+          BottomNavigationBarItem(
+            backgroundColor: Colors.white,
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: Colors.white,
+            icon: Icon(Icons.settings),
+            title: Text('Settings'),
+          )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+          elevation: 10.0,
+          backgroundColor: AppColors.primary,
+          child: Icon(Icons.add),
+          onPressed: () {
+            _createTarefa(context);
+          }),
     );
+  }
+}
+
+_createTarefa(context) {
+  {
+    Alert(
+        context: context,
+        title: "Nova tarefa",
+        content: Padding(
+          padding: EdgeInsets.only(top: 20),
+          child: Column(
+            children: <Widget>[
+              Text(
+                "Matéria",
+                textAlign: TextAlign.left,
+                style: TextStyles.input,
+              ),
+              InputTextWidget(label: "", onChanged: (value) {}),
+              Text(
+                "Tarefa",
+                textAlign: TextAlign.left,
+                style: TextStyles.input,
+              ),
+              InputTextWidget(label: "", onChanged: (value) {}),
+              Text(
+                "Data",
+                textAlign: TextAlign.left,
+                style: TextStyles.input,
+              ),
+              InputTextWidget(label: "", onChanged: (value) {}),
+              ButtonWidget(
+                  label: "Cadastrar",
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home');
+                  })
+            ],
+          ),
+        ),
+        buttons: []).show();
+  }
+}
+
+_sair(context) {
+  {
+    Alert(
+        context: context,
+        title: "Tem certeza que deseja sair?",
+        content: Padding(
+          padding: EdgeInsets.only(top: 30),
+          child: Column(
+            children: <Widget>[
+              ButtonWidget(
+                  label: "Sair",
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login');
+                  })
+            ],
+          ),
+        ),
+        buttons: []).show();
+  }
+}
+
+_removerTodasTarefas(context) {
+  {
+    Alert(
+        context: context,
+        title: "Tem certeza que deseja remover todas as tarefas?",
+        content: Padding(
+          padding: EdgeInsets.only(top: 30),
+          child: Column(
+            children: <Widget>[
+              ButtonWidget(
+                  label: "Remover",
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home');
+                  })
+            ],
+          ),
+        ),
+        buttons: []).show();
   }
 }

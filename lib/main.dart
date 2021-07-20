@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_students/modulos/Cadastro/cadastroPage.dart';
 import 'package:help_students/modulos/home/home_page.dart';
 import 'package:help_students/modulos/login/login_page.dart';
 import 'package:help_students/modulos/splash/splash_page.dart';
@@ -15,17 +16,18 @@ class MyApp extends StatelessWidget {
         // darkTheme: ThemeData.dark(),
         title: 'Help Students',
         theme: ThemeData(
+          brightness: Brightness.light,
           primarySwatch: Colors.green,
-          brightness: Brightness.dark,
-          accentColor: Colors.white,
+          accentColor: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: "/cadastro",
+        initialRoute: "/splash",
         routes: {
           "/splash": (context) => SplashScreen(),
           "/login": (context) => LoginPage(),
           "/home": (context) => HomePage(),
-          "/cadastro": (context) => CadastroPage()
+          "/cadastro": (context) => CadastroPage(),
+          // "/login": (context) => LoginPage(),
         });
   }
 }
