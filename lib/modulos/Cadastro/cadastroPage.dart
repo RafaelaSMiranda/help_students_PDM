@@ -1,22 +1,19 @@
-import 'package:help_students/modulos/Cadastro/cadastroPage.dart';
-import 'package:help_students/modulos/EsqueciSenha/esqueciPage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:help_students/modulos/components/button_widget.dart';
 import 'package:help_students/modulos/components/input_text_widget.dart';
-import 'package:help_students/modulos/home/home_page.dart';
-import 'package:help_students/shared/themes/app_colors.dart';
+import 'package:help_students/modulos/login/login_page.dart';
 import 'package:help_students/shared/themes/app_images.dart';
-import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
 
-//
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class CadastroPage extends StatefulWidget {
+  const CadastroPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _CadastroPageState createState() => _CadastroPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _CadastroPageState extends State<CadastroPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -32,29 +29,24 @@ class _LoginPageState extends State<LoginPage> {
                 left: 0,
                 right: 0,
                 child: Center(
-                    child:
-                        Image.asset(AppImages.logo, width: 350, height: 350))),
+                    child: Image.asset(AppImages.imgload,
+                        width: 300, height: 300))),
             Positioned(
-              bottom: size.height * 0.50,
-              left: 0,
-              right: 0,
-              child: Column(
-                children: [
-                  Text(
-                    "Login",
-                    textAlign: TextAlign.center,
-                    style: TextStyles.login,
-                  ),
-                ],
-              ),
-            ),
+                bottom: size.height * 0.45,
+                left: 50,
+                right: 50,
+                child: Column(
+                  children: [
+                    InputTextWidget(label: "Curso", onChanged: (value) {})
+                  ],
+                )),
             Positioned(
                 bottom: size.height * 0.35,
                 left: 50,
                 right: 50,
                 child: Column(
                   children: [
-                    InputTextWidget(label: "Usuário", onChanged: (value) {})
+                    InputTextWidget(label: "Usuario", onChanged: (value) {})
                   ],
                 )),
             Positioned(
@@ -73,39 +65,22 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: [
                     ButtonWidget(
-                        label: "Entrar",
+                        label: "Criar",
                         onPressed: () {
                           Navigator.pushNamed(context, '/home');
                         })
                   ],
                 )),
             Positioned(
-                bottom: size.height * 0.05,
-                left: 25,
-                right: 25,
-                child: Column(
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EsqueciPage()),
-                          );
-                        },
-                        child: Text("* Esqueci a Senha"))
-                  ],
-                )),
-            Positioned(
               bottom: size.height * 0.10,
-              left: 85,
-              right: 85,
+              left: 50,
+              right: 50,
               child: TextButton(
-                  child: Text('+ Criar Conta'),
+                  child: Text('< Voltar'),
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CadastroPage()),
+                      MaterialPageRoute(builder: (context) => LoginPage()),
                     );
                   }),
             )
