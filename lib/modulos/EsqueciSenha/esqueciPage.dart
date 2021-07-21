@@ -38,7 +38,7 @@ class _EsqueciPageState extends State<EsqueciPage> {
               child: Column(
                 children: [
                   Text(
-                    "Recuperação de Senha",
+                    "Recuperação de senha",
                     textAlign: TextAlign.center,
                     style: TextStyles.login,
                   ),
@@ -51,8 +51,7 @@ class _EsqueciPageState extends State<EsqueciPage> {
                 right: 50,
                 child: Column(
                   children: [
-                    InputTextWidget(
-                        label: "Email Cadastrado", onChanged: (value) {})
+                    InputTextWidget(label: "Email Cadastrado", senha: false)
                   ],
                 )),
             Positioned(
