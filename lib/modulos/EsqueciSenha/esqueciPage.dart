@@ -51,10 +51,7 @@ class _EsqueciPageState extends State<EsqueciPage> {
                 right: 50,
                 child: Column(
                   children: [
-                    InputTextWidget(
-                        label: "Email Cadastrado",
-                        onChanged: (value) {},
-                        senha: false)
+                    InputTextWidget(label: "Email Cadastrado", senha: false)
                   ],
                 )),
             Positioned(

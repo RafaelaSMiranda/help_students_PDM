@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:help_students/modulos/components/button_widget.dart';
 import 'package:help_students/modulos/components/input_text_widget.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
-import 'package:help_students/shared/themes/app_text_styles.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class CreateTableWidget extends StatelessWidget {
@@ -94,12 +93,9 @@ _atualizarTarefa(context) {
           padding: EdgeInsets.only(top: 20),
           child: Column(
             children: <Widget>[
-              InputTextWidget(
-                  label: "Matéria", onChanged: (value) {}, senha: false),
-              InputTextWidget(
-                  label: "Tarefa", onChanged: (value) {}, senha: false),
-              InputTextWidget(
-                  label: "Data", onChanged: (value) {}, senha: false),
+              InputTextWidget(label: "Matéria", senha: false),
+              InputTextWidget(label: "Tarefa", senha: false),
+              InputTextWidget(label: "Data", senha: false),
               ButtonWidget(
                   label: "Atualizar",
                   onPressed: () {

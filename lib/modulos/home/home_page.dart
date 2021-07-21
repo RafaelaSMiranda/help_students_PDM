@@ -64,10 +64,10 @@ class _HomePageState extends State<HomePage> {
             Divider(
               height: 0.1,
             ),
-            ListTile(
-              title: new Text("Mudar tema"),
-              leading: new Icon(Icons.settings),
-            ),
+            // ListTile(
+            //   title: new Text("Mudar tema"),
+            //   leading: new Icon(Icons.settings),
+            // ),
             Divider(
               height: 0.1,
             ),
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
               color: AppColors.primary,
             ),
             Positioned(
-              bottom: size.height * 0.70,
+              bottom: size.height * 0.76,
               child: Row(
                 children: <Widget>[
                   Padding(
@@ -144,22 +144,22 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        backgroundColor: Colors.grey[700],
-        items: [
-          BottomNavigationBarItem(
-            backgroundColor: Colors.white,
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Colors.white,
-            icon: Icon(Icons.search),
-            title: Text('Buscar'),
-          )
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   currentIndex: 0,
+      //   backgroundColor: Colors.grey[700],
+      //   items: [
+      //     BottomNavigationBarItem(
+      //       backgroundColor: Colors.white,
+      //       icon: Icon(Icons.home),
+      //       title: Text('Home'),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       backgroundColor: Colors.white,
+      //       icon: Icon(Icons.search),
+      //       title: Text('Buscar'),
+      //     )
+      //   ],
+      // ),
       floatingActionButton: FloatingActionButton(
           elevation: 10.0,
           backgroundColor: AppColors.primary,
@@ -180,12 +180,9 @@ _createTarefa(context) {
           padding: EdgeInsets.only(top: 20),
           child: Column(
             children: <Widget>[
-              InputTextWidget(
-                  label: "Matéria", onChanged: (value) {}, senha: false),
-              InputTextWidget(
-                  label: "Tarefa", onChanged: (value) {}, senha: false),
-              InputTextWidget(
-                  label: "Data", onChanged: (value) {}, senha: false),
+              InputTextWidget(label: "Matéria", senha: false),
+              InputTextWidget(label: "Tarefa", senha: false),
+              InputTextWidget(label: "Data", senha: false),
               ButtonWidget(
                   label: "Cadastrar",
                   onPressed: () {

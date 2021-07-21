@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
 
 class InputTextWidget extends StatelessWidget {
   final String label;
   final bool senha;
-  final String? initialValue;
-  final String? Function(String?)? validator;
-  final TextEditingController? controller;
-  final void Function(String value) onChanged;
 
   const InputTextWidget({
     Key? key,
     required this.label,
     required this.senha,
-    this.initialValue,
-    this.validator,
-    this.controller,
-    required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -27,11 +18,7 @@ class InputTextWidget extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
-              initialValue: initialValue,
               obscureText: senha,
-              validator: validator,
-              controller: controller,
-              onChanged: onChanged,
               style: TextStyles.input,
               decoration: InputDecoration(
                 labelText: label,

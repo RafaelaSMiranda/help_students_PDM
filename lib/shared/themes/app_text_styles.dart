@@ -1,4 +1,3 @@
-import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class TextStyles {
@@ -14,7 +13,6 @@ class TextStyles {
     fontSize: 18,
     fontWeight: FontWeight.bold,
   );
-
   static final input = TextStyle(
     fontSize: 15,
   );

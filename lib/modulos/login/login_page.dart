@@ -2,8 +2,6 @@ import 'package:help_students/modulos/Cadastro/cadastroPage.dart';
 import 'package:help_students/modulos/EsqueciSenha/esqueciPage.dart';
 import 'package:help_students/modulos/components/button_widget.dart';
 import 'package:help_students/modulos/components/input_text_widget.dart';
-import 'package:help_students/modulos/home/home_page.dart';
-import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
@@ -53,20 +51,14 @@ class _LoginPageState extends State<LoginPage> {
                 left: 50,
                 right: 50,
                 child: Column(
-                  children: [
-                    InputTextWidget(
-                        label: "Usuário", onChanged: (value) {}, senha: false)
-                  ],
+                  children: [InputTextWidget(label: "Usuário", senha: false)],
                 )),
             Positioned(
                 bottom: size.height * 0.25,
                 left: 50,
                 right: 50,
                 child: Column(
-                  children: [
-                    InputTextWidget(
-                        label: "Senha", onChanged: (value) {}, senha: true)
-                  ],
+                  children: [InputTextWidget(label: "Senha", senha: true)],
                 )),
             Positioned(
                 bottom: size.height * 0.15,
