@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:help_students/modulos/Cadastro/cadastroPage.dart';
-import 'package:help_students/modulos/home/home_page.dart';
-import 'package:help_students/modulos/login/login_page.dart';
-import 'package:help_students/modulos/perfil/editar_perfil_page.dart';
-import 'package:help_students/modulos/splash/splash_page.dart';
-import 'modulos/Cadastro/cadastroPage.dart';
+import 'package:help_students/views/cadastroPage.dart';
+import 'package:help_students/views/home_page.dart';
+import 'package:help_students/views/login_page.dart';
+import 'package:help_students/views/editar_perfil_page.dart';
+import 'package:help_students/views/splash_page.dart';
+import 'views/cadastroPage.dart';
+import 'package:http/http.dart';
 
 void main() {
   runApp(MyApp());

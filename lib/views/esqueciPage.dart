@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:help_students/modulos/components/button_widget.dart';
-import 'package:help_students/modulos/components/input_text_widget.dart';
-import 'package:help_students/modulos/login/login_page.dart';
+import 'package:help_students/widgets/button_widget.dart';
+import 'package:help_students/widgets/input_text_widget.dart';
+import 'package:help_students/views/login_page.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
 

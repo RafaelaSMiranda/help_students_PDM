@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:help_students/modulos/login/login_page.dart';
+import 'package:help_students/views/login_page.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';

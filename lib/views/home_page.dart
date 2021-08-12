@@ -1,6 +1,6 @@
-import 'package:help_students/modulos/components/button_widget.dart';
-import 'package:help_students/modulos/components/create_table.widget.dart';
-import 'package:help_students/modulos/components/input_text_widget.dart';
+import 'package:help_students/widgets/button_widget.dart';
+import 'package:help_students/widgets/create_table.widget.dart';
+import 'package:help_students/widgets/input_text_widget.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';

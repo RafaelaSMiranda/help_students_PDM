@@ -1,10 +1,14 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:help_students/modulos/components/button_widget.dart';
-import 'package:help_students/modulos/components/input_text_widget.dart';
-import 'package:help_students/modulos/login/login_page.dart';
+import 'package:help_students/providers/sign_up.dart';
+import 'package:help_students/widgets/button_widget.dart';
+import 'package:help_students/widgets/input_text_widget.dart';
+import 'package:help_students/views/login_page.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
+import 'package:http/http.dart' as http;
+import 'package:help_students/providers/sign_up.dart';
 
 class CadastroPage extends StatefulWidget {
   const CadastroPage({Key? key}) : super(key: key);
@@ -14,6 +18,12 @@ class CadastroPage extends StatefulWidget {
 }
 
 class _CadastroPageState extends State<CadastroPage> {
+  Uri url =
+      Uri.https("helpstudents-csi-default-rtdb.firebaseio.com", "/Users.json");
+  TextEditingController _cursoInputController = TextEditingController();
+  TextEditingController _emailInputController = TextEditingController();
+  TextEditingController _senhaInputController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -38,7 +48,10 @@ class _CadastroPageState extends State<CadastroPage> {
                 child: Column(
                   children: [
                     InputTextWidget(
-                        label: "Curso", onChanged: (value) {}, senha: false)
+                        controller: _cursoInputController,
+                        label: "Curso",
+                        onChanged: (value) {},
+                        senha: false)
                   ],
                 )),
             Positioned(
@@ -48,7 +61,10 @@ class _CadastroPageState extends State<CadastroPage> {
                 child: Column(
                   children: [
                     InputTextWidget(
-                        label: "Usuario", onChanged: (value) {}, senha: false)
+                        controller: _emailInputController,
+                        label: "Email",
+                        onChanged: (value) {},
+                        senha: false)
                   ],
                 )),
             Positioned(
@@ -58,7 +74,10 @@ class _CadastroPageState extends State<CadastroPage> {
                 child: Column(
                   children: [
                     InputTextWidget(
-                        label: "Senha", onChanged: (value) {}, senha: true)
+                        controller: _senhaInputController,
+                        label: "Senha",
+                        onChanged: (value) {},
+                        senha: true)
                   ],
                 )),
             Positioned(
@@ -70,7 +89,7 @@ class _CadastroPageState extends State<CadastroPage> {
                     ButtonWidget(
                         label: "Criar",
                         onPressed: () {
-                          Navigator.pushNamed(context, '/home');
+                          _addUser();
                         })
                   ],
                 )),
@@ -91,5 +110,10 @@ class _CadastroPageState extends State<CadastroPage> {
         ),
       ),
     );
+  }
+
+  void _addUser() {
+    SignUpService()
+        .signUp(_emailInputController.text, _senhaInputController.text);
   }
 }
