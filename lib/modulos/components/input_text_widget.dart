@@ -6,10 +6,9 @@ class InputTextWidget extends StatelessWidget {
   final bool senha;
 
   const InputTextWidget({
-    Key? key,
-    required this.label,
-    required this.senha,
-  }) : super(key: key);
+     this.label,
+     this.senha,
+  });
 
   @override
   Widget build(BuildContext context) {

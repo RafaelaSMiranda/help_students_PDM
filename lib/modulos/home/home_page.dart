@@ -6,12 +6,11 @@ import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:help_students/utils/app_routes.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 //
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -165,7 +164,9 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: AppColors.primary,
           child: Icon(Icons.add),
           onPressed: () {
-            _createTarefa(context);
+            Navigator.of(context).pushNamed(
+              AppRoutes.CADASTRO_TAREFA,
+            );
           }),
     );
   }

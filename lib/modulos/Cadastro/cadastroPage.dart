@@ -6,7 +6,6 @@ import 'package:help_students/modulos/login/login_page.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 
 class CadastroPage extends StatefulWidget {
-  const CadastroPage({Key? key}) : super(key: key);
 
   @override
   _CadastroPageState createState() => _CadastroPageState();

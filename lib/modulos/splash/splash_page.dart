@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
