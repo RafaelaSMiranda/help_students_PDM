@@ -6,9 +6,17 @@ class InputTextWidget extends StatelessWidget {
   final bool senha;
 
   const InputTextWidget({
+<<<<<<< Updated upstream
      this.label,
      this.senha,
   });
+=======
+    Key? key,
+    required this.label,
+    required this.senha,
+    TextEditingController? controller,
+  }) : super(key: key);
+>>>>>>> Stashed changes
 
   @override
   Widget build(BuildContext context) {

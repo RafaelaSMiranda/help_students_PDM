@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "37513769828",
+    "firebase_url": "https://helpstudents-csi-default-rtdb.firebaseio.com",
+    "project_id": "helpstudents-csi",
+    "storage_bucket": "helpstudents-csi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37513769828:android:6e459b40a8eabfb3f68071",
+        "android_client_info": {
+          "package_name": "com.example.help_students"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37513769828-va4ad5jqchph268q1fmpb0jo1ojn5mvp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuc4E-SsQdM55m8vd_MtI0G8cRRaxuC-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37513769828-va4ad5jqchph268q1fmpb0jo1ojn5mvp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
