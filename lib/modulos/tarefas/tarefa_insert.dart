@@ -1,71 +1,95 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:help_students/providers/tarefa.dart';
+import 'package:help_students/providers/tarefa_controle.dart';
+import 'package:help_students/shared/themes/app_colors.dart';
+import 'package:help_students/shared/themes/app_text_styles.dart';
+import 'package:help_students/utils/app_routes.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-
 class InserirTarefa extends StatelessWidget {
-  final Tarefa product;
+  final Tarefa tarefa;
 
-  InserirTarefa(this.product);
+  InserirTarefa(this.tarefa);
+  var now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundImage: NetworkImage(product.imageUrl),
-      ),
-      title: Text(product.title),
-      trailing: Container(
-        width: 100,
-        child: Row(
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.edit),
-              color: Theme.of(context).primaryColor,
-              onPressed: () {
-                Navigator.of(context)
-                    .pushNamed(AppRoutes.PRODUCT_FORM, arguments: product);
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.delete),
-              color: Theme.of(context).errorColor,
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (ctx) => AlertDialog(
-                    title: Text('Excluir Produto'),
-                    content: Text('Tem certeza?'),
+    final status = tarefa.concluido;
+    print(tarefa.concluido);
+    Icon icon = Icon(Icons.check, size: 35);
+    if (status == true) {
+      icon = Icon(Icons.check, size: 35);
+    } else {
+      if (now.compareTo(now) == 0) {
+        icon = Icon(Icons.circle, size: 35);
+      }
+    }
+    return Dismissible(
+        key: ValueKey(tarefa.id),
+        direction: DismissDirection.startToEnd,
+        confirmDismiss: (_) {
+          return showDialog(
+              context: context,
+              builder: (ctx) => AlertDialog(
+                    title: Text('Remover tarefa'),
+                    content: Text(
+                        'Você tem certeza que deseja remover esta tarefa?'),
                     actions: <Widget>[
                       TextButton(
                         child: Text('Não'),
-                        onPressed: () => Navigator.of(context).pop(false),
+                        onPressed: () {
+                          Navigator.of(ctx).pop(false);
+                        },
                       ),
                       TextButton(
                         child: Text('Sim'),
-                        onPressed: () => Navigator.of(context).pop(true),
+                        onPressed: () {
+                          Navigator.of(ctx).pop(true);
+                        },
                       ),
                     ],
-                  ),
-                ).then((value) async {
-                  if (value) {
-                    try {
-                      await Provider.of<Products>(context, listen: false)
-                          .deleteProduct(product.id);
-                    } on HttpException catch (error) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(error.toString()),
-                        ),
-                      );
-                    }
-                  }
-                });
-              },
+                  ));
+        },
+        onDismissed: (_) {
+          Provider.of<TarefaControle>(context, listen: false)
+              .deletetarefa(tarefa.id);
+        },
+        child: ListTile(
+          onTap: () {
+            Navigator.of(context)
+                .pushNamed(AppRoutes.CADASTRO_TAREFA, arguments: tarefa);
+          },
+          leading: Icon(
+            Icons.keyboard_arrow_left_sharp,
+            color: Colors.red[200],
+            size: 40,
+          ),
+          title: Text("\n" + tarefa.materia + "\n", style: TextStyles.materia),
+          subtitle: Text(
+            tarefa.descricao +
+                "\n" +
+                "Data: " +
+                DateFormat('dd/MM/yyyy hh:mm').format(now),
+            style: TextStyles.descricao,
+          ),
+          trailing: Container(
+            width: 100,
+            child: Row(
+              children: <Widget>[
+                IconButton(
+                  icon: icon,
+                  color: AppColors.primary,
+                  onPressed: () {
+                    Provider.of<TarefaControle>(context, listen: false)
+                        .concluiTarefa(tarefa);
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }

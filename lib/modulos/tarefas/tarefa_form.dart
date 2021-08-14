@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:date_field/date_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/modulos/components/button_widget.dart';
@@ -20,10 +21,11 @@ class TarefaForm extends StatefulWidget {
 class _TarefaFormState extends State<TarefaForm> {
   String _materia = "";
   String _descricao = "";
-  String _data = "";
+  DateTime _data = DateTime.now();
   final _form = GlobalKey<FormState>();
   final _formData = Map<String, Object>();
   bool _carregando = false;
+  bool formEdit = false;
   var maskFormatter = new MaskTextInputFormatter(
       mask: '##/##/####', filter: {"#": RegExp(r'[0-9]')});
 
@@ -37,6 +39,7 @@ class _TarefaFormState extends State<TarefaForm> {
         _formData['materia'] = tarefa.materia;
         _formData['descricao'] = tarefa.descricao;
         _formData['data'] = tarefa.data;
+        formEdit = true;
       }
     }
   }
@@ -68,26 +71,42 @@ class _TarefaFormState extends State<TarefaForm> {
         await tarefas.updatetarefa(tarefa);
       }
       Navigator.of(context).pop();
-      await showDialog<Null>(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: Text('Tarefa cadastrada!'),
-          content: Text('A tarefa ' +
-              _descricao +
-              ' do curso ' +
-              _materia +
-              ' para o dia ' +
-              _data +
-              ' foi cadastrada com sucesso.'),
-          backgroundColor: Colors.green[100],
-        ),
-      );
+      if (formEdit) {
+        await showDialog<Null>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('Tarefa atualizada!'),
+            content: Text('A tarefa ' +
+                _descricao +
+                ' do curso ' +
+                _materia +
+                ' para o dia ' +
+                ' foi atualizada com sucesso.'),
+            backgroundColor: Colors.green[100],
+          ),
+        );
+      } else {
+        await showDialog<Null>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('Tarefa cadastrada!'),
+            content: Text('A tarefa ' +
+                _descricao +
+                ' do curso ' +
+                _materia +
+                ' para o dia ' +
+                ' foi cadastrada com sucesso.'),
+            backgroundColor: Colors.green[100],
+          ),
+        );
+      }
     } catch (error) {
       await showDialog<Null>(
         context: context,
         builder: (ctx) => AlertDialog(
           title: Text('Houve um erro!'),
-          content: Text('Houve um erro pra salvar a tarefa "' + _materia + '".'),
+          content:
+              Text('Houve um erro pra salvar a tarefa "' + _materia + '".'),
           backgroundColor: Colors.red[100],
         ),
       );
@@ -104,7 +123,7 @@ class _TarefaFormState extends State<TarefaForm> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary,
-        title: Text('Nova tarefa'),
+        title: Text('Tarefa'),
       ),
       body: _carregando
           ? Center(
@@ -168,47 +187,50 @@ class _TarefaFormState extends State<TarefaForm> {
                     Padding(
                       padding: EdgeInsets.only(bottom: 10, top: 10),
                       child: Column(
-                        children: [
-                          TextFormField(
-                            inputFormatters: [maskFormatter],
-                            initialValue: _formData['data'],
-                            style: TextStyles.input,
-                            decoration: InputDecoration(
+                        children: <Widget>[
+                          DateTimeFormField(
+                            decoration: const InputDecoration(
+                              hintStyle: TextStyle(color: Colors.black45),
+                              errorStyle: TextStyle(color: Colors.redAccent),
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.event_note),
                               labelText: 'Data',
-                              filled: true,
                             ),
-                            keyboardType: TextInputType.datetime,
-                            onSaved: (value) => _formData['data'] = value,
-                            validator: (value) {
-                              bool isEmpty = value.trim().isEmpty;
-                              if (isEmpty) {
-                                return 'Informe a data da tarefa!';
-                              }
-                              return null;
+                            mode: DateTimeFieldPickerMode.dateAndTime,
+                            autovalidateMode: AutovalidateMode.always,
+                            validator: (e) => (e?.day ?? 0) == 1
+                                ? 'Este não é o primeiro dia'
+                                : null,
+                            onDateSelected: (DateTime value) {
+                              _formData['data'] = value;
+                              print(value);
                             },
                           ),
                         ],
                       ),
                     ),
                     Divider(),
+                    SizedBox(height: 30),
                     Padding(
                         padding: EdgeInsets.only(top: 10),
                         child: Column(
                           children: [
-                            ButtonTheme(
-                              height: 70.0,
-                              child: RaisedButton(
-                                onPressed: () => {_saveForm()},
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(10.0)),
-                                child: Text(
-                                  "Cadastrar",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                                color: Colors.green[600],
+                            RaisedButton.icon(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 15),
+                              elevation: 10,
+                              icon: Icon(
+                                Icons.playlist_add_check,
+                                color: Colors.white,
+                                size: 35,
                               ),
+                              label: Text(
+                                'Salvar',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 30),
+                              ),
+                              color: Colors.green[600],
+                              onPressed: () => {_saveForm()},
                             ),
                           ],
                         )),

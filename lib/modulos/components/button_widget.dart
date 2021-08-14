@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:help_students/shared/themes/app_colors.dart';
 
 class ButtonWidget extends StatelessWidget {
   final String label;

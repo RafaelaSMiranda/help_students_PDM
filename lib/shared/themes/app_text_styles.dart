@@ -19,4 +19,12 @@ class TextStyles {
   static final curso = TextStyle(
     fontSize: 15,
   );
+  static final descricao = TextStyle(
+    fontSize: 17,
+  );
+
+  static final materia = TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.bold,
+  );
 }

@@ -1,15 +1,11 @@
 import 'package:help_students/modulos/components/appDrawer.dart';
 import 'package:help_students/modulos/components/button_widget.dart';
-import 'package:help_students/modulos/components/create_table.widget.dart';
-import 'package:help_students/modulos/components/input_text_widget.dart';
-import 'package:help_students/providers/tarefa_controle.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:help_students/utils/app_routes.dart';
-import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 //

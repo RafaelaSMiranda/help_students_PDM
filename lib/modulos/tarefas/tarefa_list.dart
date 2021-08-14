@@ -38,6 +38,7 @@ class ListaTarefas extends StatelessWidget {
         child: ListView.builder(
           itemCount: tarefasDados.itemsCount,
           itemBuilder: (ctx, i) => Column(
+            
             children: <Widget>[
               InserirTarefa(tarefas[i]),
               Divider(),
