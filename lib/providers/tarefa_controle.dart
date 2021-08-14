@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import '../utils/constants.dart';
 import './tarefa.dart';
 
-class Tarefas with ChangeNotifier {
+class TarefaControle with ChangeNotifier {
   final String _baseUrl = '${Constants.BASE_API_URL}/tarefas';
   List<Tarefa> _items = [];
 
@@ -16,13 +16,16 @@ class Tarefas with ChangeNotifier {
   }
 
   List<Tarefa> get favoriteItems {
-    return _items.where((tarefaConclusao) => tarefaConclusao.concluido).toList();
+    return _items
+        .where((tarefaConclusao) => tarefaConclusao.concluido)
+        .toList();
   }
 
   Future<void> loadtarefas() async {
     final response = await http.get("$_baseUrl.json");
     Map<String, dynamic> data = json.decode(response.body);
 
+    print('entrou');
     _items.clear();
     if (data != null) {
       data.forEach((tarefaId, tarefaData) {
@@ -36,7 +39,6 @@ class Tarefas with ChangeNotifier {
       });
       notifyListeners();
     }
-    return Future.value();
   }
 
   Future<void> addtarefa(Tarefa newtarefa) async {

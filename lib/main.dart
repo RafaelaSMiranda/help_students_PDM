@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:help_students/modulos/Cadastro/cadastroPage.dart';
 import 'package:help_students/modulos/home/home_page.dart';
-import 'package:help_students/modulos/home/tarefa_form.dart';
+import 'package:help_students/modulos/tarefas/tarefa_form.dart';
 import 'package:help_students/modulos/login/login_page.dart';
 import 'package:help_students/modulos/perfil/editar_perfil_page.dart';
 import 'package:help_students/modulos/splash/splash_page.dart';
-import 'package:help_students/providers/tarefas.dart';
+import 'package:help_students/providers/tarefa_controle.dart';
 import 'package:help_students/utils/app_routes.dart';
 import 'package:provider/provider.dart';
 import 'modulos/Cadastro/cadastroPage.dart';
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
-            create: (_) => new Tarefas(),
+            create: (_) => new TarefaControle(),
           ),
         ],
         child: MaterialApp(
@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
               AppRoutes.CADASTRO: (context) => CadastroPage(),
               AppRoutes.CADASTRO_TAREFA: (context) => TarefaForm(),
               AppRoutes.EDICAO: (context) => EditarPerfil(),
+              AppRoutes.LISTA_TAREFAS: (context) => EditarPerfil(),
             }));
   }
 }

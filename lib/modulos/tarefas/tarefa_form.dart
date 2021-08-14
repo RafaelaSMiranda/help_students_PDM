@@ -1,13 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/modulos/components/button_widget.dart';
+import 'package:help_students/modulos/components/snackBar_widget.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../providers/tarefa.dart';
-import '../../providers/tarefas.dart';
+import '../../providers/tarefa_controle.dart';
 
 class TarefaForm extends StatefulWidget {
   @override
@@ -15,22 +18,20 @@ class TarefaForm extends StatefulWidget {
 }
 
 class _TarefaFormState extends State<TarefaForm> {
-  final _materiaFocusNode = FocusNode();
-  final _descricaoFocusNode = FocusNode();
-  final _dataFocusNode = FocusNode();
+  String _materia = "";
+  String _descricao = "";
+  String _data = "";
   final _form = GlobalKey<FormState>();
   final _formData = Map<String, Object>();
-  bool _isLoading = false;
+  bool _carregando = false;
   var maskFormatter = new MaskTextInputFormatter(
       mask: '##/##/####', filter: {"#": RegExp(r'[0-9]')});
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     if (_formData.isEmpty) {
       final tarefa = ModalRoute.of(context).settings.arguments as Tarefa;
-
       if (tarefa != null) {
         _formData['id'] = tarefa.id;
         _formData['materia'] = tarefa.materia;
@@ -40,21 +41,12 @@ class _TarefaFormState extends State<TarefaForm> {
     }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _materiaFocusNode.dispose();
-    _descricaoFocusNode.dispose();
-    _dataFocusNode.dispose();
-  }
-
   Future<void> _saveForm() async {
     var isValid = _form.currentState.validate();
     if (!isValid) {
       return;
     }
     _form.currentState.save();
-
     final tarefa = Tarefa(
       id: _formData['id'],
       materia: _formData['materia'],
@@ -63,36 +55,45 @@ class _TarefaFormState extends State<TarefaForm> {
     );
 
     setState(() {
-      _isLoading = true;
+      _carregando = true;
     });
-
-    final tarefas = Provider.of<Tarefas>(context, listen: false);
-
+    final tarefas = Provider.of<TarefaControle>(context, listen: false);
+    _materia = _formData['materia'];
+    _descricao = _formData['descricao'];
+    _data = _formData['data'];
     try {
       if (_formData['id'] == null) {
         await tarefas.addtarefa(tarefa);
-        print('salvo com sucesso');
       } else {
         await tarefas.updatetarefa(tarefa);
       }
       Navigator.of(context).pop();
+      await showDialog<Null>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text('Tarefa cadastrada!'),
+          content: Text('A tarefa ' +
+              _descricao +
+              ' do curso ' +
+              _materia +
+              ' para o dia ' +
+              _data +
+              ' foi cadastrada com sucesso.'),
+          backgroundColor: Colors.green[100],
+        ),
+      );
     } catch (error) {
       await showDialog<Null>(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: Text('Ocorreu um erro!'),
-          content: Text('Ocorreu um erro pra salvar a tarefa!'),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Fechar'),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ],
+          title: Text('Houve um erro!'),
+          content: Text('Houve um erro pra salvar a tarefa "' + _materia + '".'),
+          backgroundColor: Colors.red[100],
         ),
       );
     } finally {
       setState(() {
-        _isLoading = false;
+        _carregando = false;
       });
     }
   }
@@ -105,7 +106,7 @@ class _TarefaFormState extends State<TarefaForm> {
         backgroundColor: AppColors.primary,
         title: Text('Nova tarefa'),
       ),
-      body: _isLoading
+      body: _carregando
           ? Center(
               child: CircularProgressIndicator(),
             )
@@ -127,10 +128,6 @@ class _TarefaFormState extends State<TarefaForm> {
                                 filled: true,
                               ),
                               textInputAction: TextInputAction.next,
-                              onFieldSubmitted: (_) {
-                                FocusScope.of(context)
-                                    .requestFocus(_materiaFocusNode);
-                              },
                               onSaved: (value) => _formData['materia'] = value,
                               validator: (value) {
                                 bool isEmpty = value.trim().isEmpty;
@@ -156,10 +153,6 @@ class _TarefaFormState extends State<TarefaForm> {
                             maxLines: 3,
                             keyboardType: TextInputType.multiline,
                             textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (_) {
-                              FocusScope.of(context)
-                                  .requestFocus(_descricaoFocusNode);
-                            },
                             onSaved: (value) => _formData['descricao'] = value,
                             validator: (value) {
                               bool isEmpty = value.trim().isEmpty;
@@ -185,7 +178,6 @@ class _TarefaFormState extends State<TarefaForm> {
                               filled: true,
                             ),
                             keyboardType: TextInputType.datetime,
-                            focusNode: _dataFocusNode,
                             onSaved: (value) => _formData['data'] = value,
                             validator: (value) {
                               bool isEmpty = value.trim().isEmpty;

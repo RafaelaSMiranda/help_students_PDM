@@ -14,8 +14,16 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 //
 class HomePage extends StatelessWidget {
+  Future<void> _refreshProducts(BuildContext context) {
+    return Provider.of<TarefaControle>(context, listen: false).loadtarefas();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final productsData = Provider.of<TarefaControle>(context);
+    final products = productsData.items;
+    products.forEach((tarefa) => print(tarefa.descricao));
+    print(products);
     final size = MediaQuery.of(context).size;
     // PEGAR O TAMANHO DA TELA DO APARELHO
     return Scaffold(
@@ -34,9 +42,8 @@ class HomePage extends StatelessWidget {
         ],
       ),
       drawer: AppDrawer(),
-      body: Container(
-        width: size.width,
-        height: size.height,
+      body: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
         child: Stack(
           children: <Widget>[
             Container(
@@ -44,6 +51,7 @@ class HomePage extends StatelessWidget {
               width: size.width,
               color: AppColors.primary,
             ),
+            SizedBox(height: 80),
             Positioned(
               bottom: size.height * 0.76,
               child: Row(
@@ -80,9 +88,41 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
+            ListView(),
+            ListView.builder(
+              itemCount: productsData.itemsCount,
+              itemBuilder: (ctx, i) => Column(
+                children: <Widget>[
+                  // ProductItem(products[i]),
+                  ListTile(
+                    title: Text(products[i].descricao),
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.red,
+                    ),
+                  ),
+                  Divider(),
+                ],
+              ),
+            ),
           ],
         ),
       ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   currentIndex: 0,
+      //   backgroundColor: Colors.grey[700],
+      //   items: [
+      //     BottomNavigationBarItem(
+      //       backgroundColor: Colors.white,
+      //       icon: Icon(Icons.home),
+      //       title: Text('Home'),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       backgroundColor: Colors.white,
+      //       icon: Icon(Icons.search),
+      //       title: Text('Buscar'),
+      //     )
+      //   ],
+      // ),
       floatingActionButton: FloatingActionButton(
           elevation: 10.0,
           backgroundColor: AppColors.primary,
@@ -93,6 +133,80 @@ class HomePage extends StatelessWidget {
             );
           }),
     );
+  }
+}
+
+criarTitulo(String listaNomes) {
+  return TableRow(
+    children: listaNomes.split(',').map((name) {
+      return Container(
+        color: Colors.grey[300],
+        alignment: Alignment.center,
+        child: Text(name,
+            style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.bold)),
+        padding: EdgeInsets.all(10),
+      );
+    }).toList(),
+  );
+}
+
+criarLinha(String listaNomes, context) {
+  return TableRow(
+    children: listaNomes.split(',').map((name) {
+      if (name == "IconYellow") {
+        return new Padding(
+            padding: EdgeInsets.only(top: 20, bottom: 20),
+            child: Center(child: new Icon(Icons.circle, color: Colors.yellow)));
+      } else if (name == "IconGreen") {
+        return new Padding(
+            padding: EdgeInsets.only(top: 20, bottom: 20),
+            child: Center(child: new Icon(Icons.circle, color: Colors.green)));
+      } else if (name == "IconCheck") {
+        return new Padding(
+            padding: EdgeInsets.only(top: 20, bottom: 20),
+            child: Center(
+                child: new Icon(
+              Icons.check,
+              size: 30,
+            )));
+      } else {
+        return new Padding(
+            padding: EdgeInsets.only(top: 10),
+            child: Center(
+              child: ListTile(
+                title: new Text(name, style: TextStyle(fontSize: 12)),
+                onTap: () {},
+              ),
+            ));
+      }
+    }).toList(),
+  );
+}
+
+_createTarefa(context) {
+  {
+    Alert(
+        context: context,
+        title: "Nova tarefa",
+        content: Padding(
+          padding: EdgeInsets.only(top: 20),
+          child: Column(
+            children: <Widget>[
+              InputTextWidget(label: "Matéria", senha: false),
+              InputTextWidget(label: "Tarefa", senha: false),
+              InputTextWidget(label: "Data", senha: false),
+              ButtonWidget(
+                  label: "Cadastrar",
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home');
+                  })
+            ],
+          ),
+        ),
+        buttons: []).show();
   }
 }
 
