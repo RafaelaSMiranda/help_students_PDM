@@ -5,11 +5,10 @@ import 'package:help_students/modulos/components/input_text_widget.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
+import 'package:help_students/utils/app_routes.dart';
 
 //
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -97,9 +96,8 @@ class _LoginPageState extends State<LoginPage> {
               child: TextButton(
                   child: Text('+ Criar Conta'),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CadastroPage()),
+                    Navigator.of(context).pushReplacementNamed(
+                      AppRoutes.HOME,
                     );
                   }),
             )

@@ -1,18 +1,24 @@
+import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:help_students/modulos/auth/sing_up_service.dart';
 import 'package:help_students/modulos/components/button_widget.dart';
 import 'package:help_students/modulos/components/input_text_widget.dart';
 import 'package:help_students/modulos/login/login_page.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 
 class CadastroPage extends StatefulWidget {
-  const CadastroPage({Key? key}) : super(key: key);
 
   @override
   _CadastroPageState createState() => _CadastroPageState();
 }
 
 class _CadastroPageState extends State<CadastroPage> {
+  TextEditingController _cursoInputcontroller = TextEditingController();
+  TextEditingController _emailInputcontroller = TextEditingController();
+  TextEditingController _senhaInputcontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -35,21 +41,40 @@ class _CadastroPageState extends State<CadastroPage> {
                 left: 50,
                 right: 50,
                 child: Column(
-                  children: [InputTextWidget(label: "Curso", senha: false)],
+                  children: [
+                    TextField(
+                      controller: _cursoInputcontroller,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(), hintText: 'Curso'),
+                    )
+                  ],
                 )),
             Positioned(
                 bottom: size.height * 0.35,
                 left: 50,
                 right: 50,
                 child: Column(
-                  children: [InputTextWidget(label: "Usuario", senha: false)],
+                  children: [
+                    TextField(
+                      controller: _emailInputcontroller,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(), hintText: 'email'),
+                    )
+                  ],
                 )),
             Positioned(
                 bottom: size.height * 0.25,
                 left: 50,
                 right: 50,
                 child: Column(
-                  children: [InputTextWidget(label: "Senha", senha: true)],
+                  children: [
+                    TextField(
+                      controller: _senhaInputcontroller,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(), hintText: 'Senha'),
+                    )
+                  ],
                 )),
             Positioned(
                 bottom: size.height * 0.15,
@@ -60,7 +85,8 @@ class _CadastroPageState extends State<CadastroPage> {
                     ButtonWidget(
                         label: "Criar",
                         onPressed: () {
-                          Navigator.pushNamed(context, '/home');
+                          print("CHEGUEI Onpress");
+                          _doSignUp();
                         })
                   ],
                 )),
@@ -81,5 +107,10 @@ class _CadastroPageState extends State<CadastroPage> {
         ),
       ),
     );
+  }
+
+  void _doSignUp() {
+    SignUpServices()
+        .signUp(_emailInputcontroller.text, _senhaInputcontroller.text);
   }
 }

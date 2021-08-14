@@ -7,7 +7,6 @@ import 'package:help_students/shared/themes/app_images.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
 
 class EsqueciPage extends StatefulWidget {
-  const EsqueciPage({Key? key}) : super(key: key);
 
   @override
   _EsqueciPageState createState() => _EsqueciPageState();
