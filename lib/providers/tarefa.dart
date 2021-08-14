@@ -8,7 +8,7 @@ class Tarefa with ChangeNotifier {
   final String id;
   final String materia;
   final String descricao;
-  final String data;
+  final DateTime data;
   bool concluido;
 
   Tarefa(
@@ -16,7 +16,7 @@ class Tarefa with ChangeNotifier {
       @required this.materia,
       @required this.descricao,
       @required this.data,
-      this.concluido= false});
+      this.concluido = false});
 
   void _toggleConcluido() {
     concluido = !concluido;
