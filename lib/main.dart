@@ -5,6 +5,7 @@ import 'package:help_students/modulos/tarefas/tarefa_form.dart';
 import 'package:help_students/modulos/login/login_page.dart';
 import 'package:help_students/modulos/perfil/editar_perfil_page.dart';
 import 'package:help_students/modulos/splash/splash_page.dart';
+import 'package:help_students/modulos/tarefas/tarefa_list.dart';
 import 'package:help_students/providers/tarefa_controle.dart';
 import 'package:help_students/utils/app_routes.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
               AppRoutes.CADASTRO: (context) => CadastroPage(),
               AppRoutes.CADASTRO_TAREFA: (context) => TarefaForm(),
               AppRoutes.EDICAO: (context) => EditarPerfil(),
-              AppRoutes.LISTA_TAREFAS: (context) => EditarPerfil(),
+              AppRoutes.LISTA_TAREFAS: (context) => ListaTarefas(),
             }));
   }
 }

@@ -80,13 +80,36 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
+            Positioned(
+                bottom: size.height * 0.55,
+                child: Column(
+                  children: [
+                    ButtonTheme(
+                      height: 70.0,
+                      child: RaisedButton(
+                        onPressed: () => {
+                          Navigator.of(context).pushNamed(
+                            AppRoutes.LISTA_TAREFAS,
+                          ),
+                        },
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(10.0)),
+                        child: Text(
+                          "Cadastrar",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        color: Colors.green[600],
+                      ),
+                    ),
+                  ],
+                )),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
           elevation: 10.0,
           backgroundColor: AppColors.primary,
-          child: Icon(Icons.add),
+          child: Icon(Icons.add_task),
           onPressed: () {
             Navigator.of(context).pushNamed(
               AppRoutes.CADASTRO_TAREFA,
