@@ -26,7 +26,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   provider: ^4.0.5
-  intl: ^0.16.1
   http: ^0.12.1
 
   # The following adds the Cupertino Icons font to your application.
@@ -37,6 +36,7 @@ dependencies:
   mask_text_input_formatter: ^2.0.0
   datetime_picker_formfield: ^1.0.0
   date_field: ^1.0.5
+  intl: ^0.17.0
  
 
 dev_dependencies:
