@@ -10,6 +10,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 //
 class HomePage extends StatelessWidget {
+  get child => null;
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -77,28 +79,96 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Positioned(
-                bottom: size.height * 0.55,
-                child: Column(
-                  children: [
-                    ButtonTheme(
-                      height: 70.0,
-                      child: RaisedButton(
-                        onPressed: () => {
-                          Navigator.of(context).pushNamed(
-                            AppRoutes.LISTA_TAREFAS,
-                          ),
-                        },
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(10.0)),
-                        child: Text(
-                          "Cadastrar",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                        color: Colors.green[600],
-                      ),
+                bottom: size.height * 0.65,
+                left: 60,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "Welcome to Help Students",
+                    style: TextStyle(
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
                     ),
-                  ],
+                    textAlign: TextAlign.center,
+                  ),
                 )),
+            Positioned(
+              bottom: size.height * 0.35,
+              left: 100,
+              child: FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(AppRoutes.LISTA_TAREFAS);
+                  },
+                  padding: EdgeInsets.all(0.0),
+                  child: Image.asset(AppImages.concluida,
+                      width: 300, height: 200)),
+            ),
+            Positioned(
+                bottom: size.height * 0.35,
+                left: 180,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "Todas as Tarefas",
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                )),
+            Positioned(
+                bottom: size.height * 0.15,
+                left: 90,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "Tarefas Abertas",
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                )),
+            Positioned(
+                bottom: size.height * 0.15,
+                left: 350,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "Tarefas Concluidas",
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                )),
+            Positioned(
+              bottom: size.height * 0.20,
+              left: 30,
+              child: FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(AppRoutes.LISTA_TAREFAS);
+                  },
+                  padding: EdgeInsets.all(0.0),
+                  child: Image.asset(AppImages.list, width: 200, height: 100)),
+            ),
+            Positioned(
+              bottom: size.height * 0.20,
+              left: 300,
+              child: FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(AppRoutes.LISTA_TAREFAS);
+                  },
+                  padding: EdgeInsets.all(0.0),
+                  child: Image.asset(AppImages.open, width: 200, height: 100)),
+            ),
           ],
         ),
       ),

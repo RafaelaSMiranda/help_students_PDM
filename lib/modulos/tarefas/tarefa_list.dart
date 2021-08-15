@@ -40,7 +40,7 @@ class ListaTarefas extends StatelessWidget {
           itemBuilder: (ctx, i) => Column(
             
             children: <Widget>[
-              InserirTarefa(tarefas[i]),
+              //            InserirTarefa(tarefas[i]),
               Divider(),
             ],
           ),
