@@ -1,5 +1,6 @@
 import 'package:help_students/modulos/components/appDrawer.dart';
 import 'package:help_students/modulos/components/button_widget.dart';
+import 'package:help_students/modulos/tarefas/tarefa_list.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';
@@ -80,13 +81,13 @@ class HomePage extends StatelessWidget {
             ),
             Positioned(
                 bottom: size.height * 0.65,
-                left: 60,
+                left: size.width * 0.1,
                 child: Align(
-                  alignment: Alignment.centerRight,
+                  alignment: Alignment.center,
                   child: Text(
                     "Welcome to Help Students",
                     style: TextStyle(
-                      fontSize: 30.0,
+                      fontSize: 25.0,
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,
                     ),
@@ -94,8 +95,8 @@ class HomePage extends StatelessWidget {
                   ),
                 )),
             Positioned(
-              bottom: size.height * 0.35,
-              left: 100,
+              bottom: size.height * 0.38,
+              left: 70,
               child: FlatButton(
                   onPressed: () {
                     Navigator.of(context).pushNamed(AppRoutes.LISTA_TAREFAS);
@@ -106,7 +107,7 @@ class HomePage extends StatelessWidget {
             ),
             Positioned(
                 bottom: size.height * 0.35,
-                left: 180,
+                left: 150,
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
@@ -121,7 +122,7 @@ class HomePage extends StatelessWidget {
                 )),
             Positioned(
                 bottom: size.height * 0.15,
-                left: 90,
+                left: 80,
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
@@ -136,7 +137,7 @@ class HomePage extends StatelessWidget {
                 )),
             Positioned(
                 bottom: size.height * 0.15,
-                left: 350,
+                left: 280,
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
@@ -154,17 +155,23 @@ class HomePage extends StatelessWidget {
               left: 30,
               child: FlatButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(AppRoutes.LISTA_TAREFAS);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (_) => ListaTarefas('abertas')),
+                    );
                   },
                   padding: EdgeInsets.all(0.0),
                   child: Image.asset(AppImages.list, width: 200, height: 100)),
             ),
             Positioned(
               bottom: size.height * 0.20,
-              left: 300,
+              left: 220,
               child: FlatButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(AppRoutes.LISTA_TAREFAS);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (_) => ListaTarefas('concluidas')),
+                    );
                   },
                   padding: EdgeInsets.all(0.0),
                   child: Image.asset(AppImages.open, width: 200, height: 100)),
@@ -208,21 +215,23 @@ _sair(context) {
 
 _removerTodasTarefas(context) {
   {
-    Alert(
-        context: context,
-        title: "Tem certeza que deseja remover todas as tarefas?",
-        content: Padding(
-          padding: EdgeInsets.only(top: 30),
-          child: Column(
-            children: <Widget>[
-              ButtonWidget(
-                  label: "Remover",
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/home');
-                  })
-            ],
-          ),
+    AlertDialog(
+      title: Text('Remover tarefa'),
+      content: Text('Você tem certeza que deseja remover esta tarefa?'),
+      actions: <Widget>[
+        TextButton(
+          child: Text('Não'),
+          onPressed: () {
+            Navigator.of(context).pop(false);
+          },
         ),
-        buttons: []).show();
+        TextButton(
+          child: Text('Sim'),
+          onPressed: () {
+            Navigator.of(context).pop(true);
+          },
+        ),
+      ],
+    );
   }
 }

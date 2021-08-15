@@ -13,18 +13,33 @@ class InserirTarefa extends StatelessWidget {
   final Tarefa tarefa;
 
   InserirTarefa(this.tarefa);
-  var now = DateTime.now();
-
+  final now = DateTime.now();
   @override
   Widget build(BuildContext context) {
     final status = tarefa.concluido;
-    print(tarefa.concluido);
     Icon icon = Icon(Icons.check, size: 35);
     if (status == true) {
       icon = Icon(Icons.check, size: 35);
     } else {
-      if (now.compareTo(now) == 0) {
-        icon = Icon(Icons.circle, size: 35);
+      if (tarefa.data.difference(now).inDays > 6) {
+        icon = Icon(
+          Icons.circle,
+          size: 35,
+          color: Colors.green,
+        );
+      } else if (tarefa.data.difference(now).inDays >= 0 &&
+          tarefa.data.difference(now).inDays <= 5) {
+        icon = Icon(
+          Icons.circle,
+          size: 35,
+          color: Colors.orange,
+        );
+      } else if (tarefa.data.difference(now).inDays < 0) {
+        icon = Icon(
+          Icons.circle,
+          size: 35,
+          color: Colors.red,
+        );
       }
     }
     return Dismissible(
@@ -72,7 +87,7 @@ class InserirTarefa extends StatelessWidget {
             tarefa.descricao +
                 "\n" +
                 "Data: " +
-                DateFormat('dd/MM/yyyy hh:mm').format(now),
+                DateFormat('dd/MM/yyyy hh:mm').format(tarefa.data),
             style: TextStyles.descricao,
           ),
           trailing: Container(

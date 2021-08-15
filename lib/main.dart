@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
               AppRoutes.CADASTRO: (context) => CadastroPage(),
               AppRoutes.CADASTRO_TAREFA: (context) => TarefaForm(),
               AppRoutes.EDICAO: (context) => EditarPerfil(),
-              AppRoutes.LISTA_TAREFAS: (context) => ListaTarefas(),
+              AppRoutes.LISTA_TAREFAS: (context) => ListaTarefas('todas'),
             }));
   }
 }

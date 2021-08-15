@@ -21,7 +21,7 @@ class TarefaForm extends StatefulWidget {
 class _TarefaFormState extends State<TarefaForm> {
   String _materia = "";
   String _descricao = "";
-  DateTime _data = DateTime.now();
+  DateTime _data;
   final _form = GlobalKey<FormState>();
   final _formData = Map<String, Object>();
   bool _carregando = false;
@@ -189,6 +189,7 @@ class _TarefaFormState extends State<TarefaForm> {
                       child: Column(
                         children: <Widget>[
                           DateTimeFormField(
+                            initialValue: _formData['data'],
                             decoration: const InputDecoration(
                               hintStyle: TextStyle(color: Colors.black45),
                               errorStyle: TextStyle(color: Colors.redAccent),
@@ -198,9 +199,6 @@ class _TarefaFormState extends State<TarefaForm> {
                             ),
                             mode: DateTimeFieldPickerMode.dateAndTime,
                             autovalidateMode: AutovalidateMode.always,
-                            validator: (e) => (e?.day ?? 0) == 1
-                                ? 'Este não é o primeiro dia'
-                                : null,
                             onDateSelected: (DateTime value) {
                               _formData['data'] = value;
                               print(value);

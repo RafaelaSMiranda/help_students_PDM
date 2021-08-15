@@ -9,6 +9,7 @@ import './tarefa.dart';
 class TarefaControle with ChangeNotifier {
   final String _baseUrl = '${Constants.BASE_API_URL}/tarefas';
   List<Tarefa> _items = [];
+  DateTime data = DateTime.now();
 
   List<Tarefa> get items => [..._items];
 
@@ -33,7 +34,7 @@ class TarefaControle with ChangeNotifier {
         body: json.encode({
           'materia': tarefa.materia,
           'descricao': tarefa.descricao,
-          'data': DateFormat('dd/MM/yyyy hh:mm').format(tarefa.data),
+          'data': tarefa.data.toIso8601String(),
           'concluido': !tarefa.concluido,
         }),
       );
@@ -44,16 +45,16 @@ class TarefaControle with ChangeNotifier {
 
   Future<void> loadtarefas() async {
     final response = await http.get("$_baseUrl.json");
+    final date = DateTime.now();
     Map<String, dynamic> data = json.decode(response.body);
     _items.clear();
     if (data != null) {
       data.forEach((tarefaId, tarefaData) {
-        var data = (tarefaData['data'].toString());
         _items.add(Tarefa(
           id: tarefaId,
           materia: tarefaData['materia'],
           descricao: tarefaData['descricao'],
-          data: tarefaData['data'],
+          data: DateTime.parse(tarefaData['data']),
           concluido: tarefaData['concluido'],
         ));
       });
@@ -62,14 +63,12 @@ class TarefaControle with ChangeNotifier {
   }
 
   Future<void> addtarefa(Tarefa newtarefa) async {
-    print('entrou');
-    print(newtarefa.data);
     final response = await http.post(
       "$_baseUrl.json",
       body: json.encode({
         'materia': newtarefa.materia,
         'descricao': newtarefa.descricao,
-        'data': DateFormat('dd/MM/yyyy hh:mm').format(newtarefa.data),
+        'data': newtarefa.data.toIso8601String(),
         'concluido': newtarefa.concluido,
       }),
     );
@@ -94,7 +93,7 @@ class TarefaControle with ChangeNotifier {
         body: json.encode({
           'materia': tarefa.materia,
           'descricao': tarefa.descricao,
-          'data': DateFormat('dd/MM/yyyy hh:mm').format(tarefa.data),
+          'data': (tarefa.data).toIso8601String(),
         }),
       );
       _items[index] = tarefa;
