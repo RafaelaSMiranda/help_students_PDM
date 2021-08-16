@@ -201,7 +201,6 @@ class _TarefaFormState extends State<TarefaForm> {
                             autovalidateMode: AutovalidateMode.always,
                             onDateSelected: (DateTime value) {
                               _formData['data'] = value;
-                              print(value);
                             },
                           ),
                         ],

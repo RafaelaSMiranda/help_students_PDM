@@ -18,31 +18,6 @@ class Tarefa with ChangeNotifier {
       @required this.data,
       this.concluido = false});
 
-  void _toggleConcluido() {
-    concluido = !concluido;
-    notifyListeners();
-  }
-
-  Future<void> toggleConcluido() async {
-    _toggleConcluido();
-
-    try {
-      final url = '${Constants.BASE_API_URL}/products/$id.json';
-      final response = await http.patch(
-        url,
-        body: json.encode({
-          'isFavorite': concluido,
-        }),
-      );
-
-      if (response.statusCode >= 400) {
-        _toggleConcluido();
-      }
-    } catch (error) {
-      _toggleConcluido();
-    }
-  }
-
   factory Tarefa.fromJson(Map<String, dynamic> json) {
     return Tarefa(
         id: json['id'],

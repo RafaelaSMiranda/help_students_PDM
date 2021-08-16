@@ -1,18 +1,25 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:help_students/modulos/components/appDrawer.dart';
 import 'package:help_students/modulos/components/button_widget.dart';
 import 'package:help_students/modulos/tarefas/tarefa_list.dart';
+import 'package:help_students/providers/login_controle.dart';
+import 'package:help_students/providers/tarefa_controle.dart';
+import 'package:help_students/providers/usuario.dart';
+import 'package:help_students/providers/usuario_controle.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:help_students/utils/app_routes.dart';
+import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 //
 class HomePage extends StatelessWidget {
   get child => null;
-
+  final Usuario _user;
+  HomePage(this._user);
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -32,7 +39,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      drawer: AppDrawer(),
+      drawer: AppDrawer(_user),
       body: Container(
         width: size.width,
         height: size.height,
@@ -49,9 +56,9 @@ class HomePage extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(left: 15),
-                    child: Image.asset(
-                      AppImages.avatar,
-                      width: 100,
+                    child: Image.network(
+                      _user.photoURL,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   Container(
@@ -63,7 +70,7 @@ class HomePage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 5, top: 10),
                       child: Text(
-                        "Maria Clara",
+                        _user.name,
                         style: TextStyles.name,
                         textAlign: TextAlign.left,
                       ),
@@ -71,7 +78,7 @@ class HomePage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 30),
                       child: Text(
-                        "Sistemas de Informação",
+                        _user.email,
                         style: TextStyles.curso,
                       ),
                     ),

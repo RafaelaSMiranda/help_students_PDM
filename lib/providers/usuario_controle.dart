@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:help_students/modulos/home/home_page.dart';
 import 'package:help_students/providers/usuario.dart';
 import 'package:help_students/utils/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UsuarioControle {
+class UsuarioControle with ChangeNotifier {
   Usuario _user;
-
   Usuario get user => _user;
   // NÃO CONSEGUE MODIFICAR A VARÍAVEL EM OUTRO LOCAL DO CODIGO
 
@@ -14,11 +14,13 @@ class UsuarioControle {
     if (user != null) {
       saveUser(user);
       _user = user;
-      print(user.name);
-      Navigator.of(context).pushNamed('/home');
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => HomePage(user)),
+      );
     } else {
       Navigator.of(context).pushNamed('/login');
     }
+    notifyListeners();
   }
 
   Future<void> saveUser(Usuario user) async {
@@ -36,5 +38,6 @@ class UsuarioControle {
     } else {
       setUser(context, null);
     }
+    notifyListeners();
   }
 }

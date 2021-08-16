@@ -17,11 +17,6 @@ class TarefaControle with ChangeNotifier {
     return _items.length;
   }
 
-  // List<Tarefa> get favoriteItems {
-  //   return _items
-  //       .where((tarefaConclusao) => tarefaConclusao.concluido)
-  //       .toList();
-  // }
 
   Future<void> concluiTarefa(Tarefa tarefa) async {
     if (tarefa == null || tarefa.id == null) {
