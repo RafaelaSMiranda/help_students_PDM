@@ -1,8 +1,8 @@
+// @dart=2.3
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:help_students/providers/usuario.dart';
 import 'package:help_students/providers/usuario_controle.dart';
-
 class LoginControle with ChangeNotifier {
   Usuario _user;
   Usuario get user => _user;

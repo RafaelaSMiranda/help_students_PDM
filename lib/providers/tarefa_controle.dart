@@ -1,8 +1,8 @@
+// @dart=2.3
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import '../utils/constants.dart';
 import './tarefa.dart';
 
@@ -17,7 +17,6 @@ class TarefaControle with ChangeNotifier {
     return _items.length;
   }
 
-
   Future<void> concluiTarefa(Tarefa tarefa) async {
     if (tarefa == null || tarefa.id == null) {
       return;
@@ -25,7 +24,7 @@ class TarefaControle with ChangeNotifier {
     final index = _items.indexWhere((task) => task.id == tarefa.id);
     if (index >= 0) {
       await http.patch(
-        "$_baseUrl/${tarefa.id}.json",
+        Uri.parse("$_baseUrl/${tarefa.id}.json"),
         body: json.encode({
           'materia': tarefa.materia,
           'descricao': tarefa.descricao,
@@ -39,7 +38,7 @@ class TarefaControle with ChangeNotifier {
   }
 
   Future<void> loadtarefas() async {
-    final response = await http.get("$_baseUrl.json");
+    final response = await http.get(Uri.parse("$_baseUrl.json"));
     final date = DateTime.now();
     Map<String, dynamic> data = json.decode(response.body);
     _items.clear();
@@ -59,7 +58,7 @@ class TarefaControle with ChangeNotifier {
 
   Future<void> addtarefa(Tarefa newtarefa) async {
     final response = await http.post(
-      "$_baseUrl.json",
+       Uri.parse("$_baseUrl.json"),
       body: json.encode({
         'materia': newtarefa.materia,
         'descricao': newtarefa.descricao,
@@ -84,7 +83,7 @@ class TarefaControle with ChangeNotifier {
     final index = _items.indexWhere((task) => task.id == tarefa.id);
     if (index >= 0) {
       await http.patch(
-        "$_baseUrl/${tarefa.id}.json",
+         Uri.parse("$_baseUrl/${tarefa.id}.json"),
         body: json.encode({
           'materia': tarefa.materia,
           'descricao': tarefa.descricao,
@@ -102,7 +101,7 @@ class TarefaControle with ChangeNotifier {
       final tarefa = _items[index];
       _items.remove(tarefa);
       notifyListeners();
-      final response = await http.delete("$_baseUrl/${tarefa.id}.json");
+      final response = await http.delete(Uri.parse("$_baseUrl/${tarefa.id}.json"));
       if (response.statusCode >= 400) {
         _items.insert(index, tarefa);
         notifyListeners();

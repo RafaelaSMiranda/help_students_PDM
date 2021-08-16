@@ -1,9 +1,6 @@
+// @dart=2.3
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
-import '../utils/constants.dart';
-
 class Tarefa with ChangeNotifier {
   final String id;
   final String materia;

@@ -1,8 +1,7 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
-import 'package:help_students/shared/themes/app_images.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
-
 class SocialLoginButton extends StatelessWidget {
   final VoidCallback onTap;
   const SocialLoginButton({this.onTap});

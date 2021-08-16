@@ -1,8 +1,7 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:help_students/providers/usuario.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
-import 'package:help_students/shared/themes/app_images.dart';
-
 class AppDrawer extends StatelessWidget {
   @override
   final Usuario _user;

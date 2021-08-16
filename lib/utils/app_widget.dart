@@ -42,7 +42,7 @@ class AppWidget extends StatelessWidget {
             routes: {
               AppRoutes.SPLASH: (context) => SplashScreen(),
               AppRoutes.LOGIN: (context) => LoginPage(),
-              // AppRoutes.HOME: (context) => HomePage(_user),
+              AppRoutes.HOME: (context) => HomePage(_user),
               AppRoutes.CADASTRO: (context) => CadastroPage(),
               AppRoutes.CADASTRO_TAREFA: (context) => TarefaForm(),
               AppRoutes.EDICAO: (context) => EditarPerfil(),
