@@ -38,22 +38,9 @@ class _AppFirebaseState extends State<AppFirebase> {
             child: Center(
               child: CircularProgressIndicator(),
             ),
-<<<<<<< Updated upstream
           );
         }
       },
     );
-=======
-            initialRoute: "/splash",
-            routes: {
-              AppRoutes.SPLASH: (context) => SplashScreen(),
-              AppRoutes.LOGIN: (context) => LoginPage(),
-              AppRoutes.HOME: (context) => HomePage(),
-              AppRoutes.CADASTRO: (context) => CadastroPage(),
-              // AppRoutes.CADASTRO_TAREFA: (context) => TarefaForm(),
-              AppRoutes.EDICAO: (context) => EditarPerfil(),
-              AppRoutes.LISTA_TAREFAS: (context) => ListaTarefas(),
-            }));
->>>>>>> Stashed changes
   }
 }
