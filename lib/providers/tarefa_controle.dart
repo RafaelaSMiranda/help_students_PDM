@@ -1,26 +1,20 @@
+// @dart=2.3
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import '../utils/constants.dart';
 import './tarefa.dart';
 
 class TarefaControle with ChangeNotifier {
   final String _baseUrl = '${Constants.BASE_API_URL}/tarefas';
   List<Tarefa> _items = [];
-
+  DateTime data = DateTime.now();
   List<Tarefa> get items => [..._items];
-
+  
   int get itemsCount {
     return _items.length;
   }
-
-  // List<Tarefa> get favoriteItems {
-  //   return _items
-  //       .where((tarefaConclusao) => tarefaConclusao.concluido)
-  //       .toList();
-  // }
 
   Future<void> concluiTarefa(Tarefa tarefa) async {
     if (tarefa == null || tarefa.id == null) {
@@ -29,11 +23,11 @@ class TarefaControle with ChangeNotifier {
     final index = _items.indexWhere((task) => task.id == tarefa.id);
     if (index >= 0) {
       await http.patch(
-        "$_baseUrl/${tarefa.id}.json",
+        Uri.parse("$_baseUrl/${tarefa.id}.json"),
         body: json.encode({
           'materia': tarefa.materia,
           'descricao': tarefa.descricao,
-          'data': DateFormat('dd/MM/yyyy hh:mm').format(tarefa.data),
+          'data': tarefa.data.toIso8601String(),
           'concluido': !tarefa.concluido,
         }),
       );
@@ -43,17 +37,16 @@ class TarefaControle with ChangeNotifier {
   }
 
   Future<void> loadtarefas() async {
-    final response = await http.get("$_baseUrl.json");
+    final response = await http.get(Uri.parse("$_baseUrl.json"));
     Map<String, dynamic> data = json.decode(response.body);
     _items.clear();
     if (data != null) {
       data.forEach((tarefaId, tarefaData) {
-        var data = (tarefaData['data'].toString());
         _items.add(Tarefa(
           id: tarefaId,
           materia: tarefaData['materia'],
           descricao: tarefaData['descricao'],
-          data: tarefaData['data'],
+          data: DateTime.parse(tarefaData['data']),
           concluido: tarefaData['concluido'],
         ));
       });
@@ -62,14 +55,12 @@ class TarefaControle with ChangeNotifier {
   }
 
   Future<void> addtarefa(Tarefa newtarefa) async {
-    print('entrou');
-    print(newtarefa.data);
     final response = await http.post(
-      "$_baseUrl.json",
+      Uri.parse("$_baseUrl.json"),
       body: json.encode({
         'materia': newtarefa.materia,
         'descricao': newtarefa.descricao,
-        'data': DateFormat('dd/MM/yyyy hh:mm').format(newtarefa.data),
+        'data': newtarefa.data.toIso8601String(),
         'concluido': newtarefa.concluido,
       }),
     );
@@ -90,11 +81,11 @@ class TarefaControle with ChangeNotifier {
     final index = _items.indexWhere((task) => task.id == tarefa.id);
     if (index >= 0) {
       await http.patch(
-        "$_baseUrl/${tarefa.id}.json",
+        Uri.parse("$_baseUrl/${tarefa.id}.json"),
         body: json.encode({
           'materia': tarefa.materia,
           'descricao': tarefa.descricao,
-          'data': DateFormat('dd/MM/yyyy hh:mm').format(tarefa.data),
+          'data': (tarefa.data).toIso8601String(),
         }),
       );
       _items[index] = tarefa;
@@ -108,7 +99,8 @@ class TarefaControle with ChangeNotifier {
       final tarefa = _items[index];
       _items.remove(tarefa);
       notifyListeners();
-      final response = await http.delete("$_baseUrl/${tarefa.id}.json");
+      final response =
+          await http.delete(Uri.parse("$_baseUrl/${tarefa.id}.json"));
       if (response.statusCode >= 400) {
         _items.insert(index, tarefa);
         notifyListeners();

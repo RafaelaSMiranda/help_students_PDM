@@ -1,9 +1,12 @@
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:help_students/modulos/components/appDrawer.dart';
 import 'package:help_students/modulos/components/button_widget.dart';
 import 'package:help_students/modulos/components/create_table.widget.dart';
 import 'package:help_students/modulos/components/input_text_widget.dart';
 import 'package:help_students/modulos/tarefas/tarefa_insert.dart';
+import 'package:help_students/providers/login_controle.dart';
 import 'package:help_students/providers/tarefa_controle.dart';
+import 'package:help_students/providers/usuario_controle.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +20,10 @@ class ListaTarefas extends StatelessWidget {
     return Provider.of<TarefaControle>(context, listen: false).loadtarefas();
   }
 
+  final String condicao;
+
+  ListaTarefas(this.condicao);
+
   void initState(context) {
     _recarregarTarefas(context);
   }
@@ -26,11 +33,12 @@ class ListaTarefas extends StatelessWidget {
     final tarefasDados = Provider.of<TarefaControle>(context);
     Provider.of<TarefaControle>(context, listen: false).loadtarefas();
     final tarefas = tarefasDados.items;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         title: Text(
-          'Próximas tarefas',
+          'Tarefas',
         ),
       ),
       body: RefreshIndicator(
@@ -38,10 +46,12 @@ class ListaTarefas extends StatelessWidget {
         child: ListView.builder(
           itemCount: tarefasDados.itemsCount,
           itemBuilder: (ctx, i) => Column(
-            
             children: <Widget>[
-              //            InserirTarefa(tarefas[i]),
-              Divider(),
+              if (condicao == 'concluidas' && tarefas[i].concluido == true)
+                InserirTarefa(tarefas[i]),
+              if (condicao == 'abertas' && tarefas[i].concluido == false)
+                InserirTarefa(tarefas[i]),
+              if (condicao == 'todas') InserirTarefa(tarefas[i]),
             ],
           ),
         ),

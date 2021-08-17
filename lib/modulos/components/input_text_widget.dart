@@ -1,6 +1,6 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
-
 class InputTextWidget extends StatelessWidget {
   final String label;
   final bool senha;

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "943977133492",
+    "firebase_url": "https://help-students-csi608-default-rtdb.firebaseio.com",
+    "project_id": "help-students-csi608",
+    "storage_bucket": "help-students-csi608.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943977133492:android:79ac93f691433b75feaee1",
+        "android_client_info": {
+          "package_name": "com.example.help_students"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943977133492-dl5ttrf0mvpe915bn0jhc1n5641ucb4s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.help_students",
+            "certificate_hash": "a1e2ab075af3ae1d691a7d6eef917334bc5af681"
+          }
+        },
+        {
+          "client_id": "943977133492-ufoirr4d7cnnj0ah82gm2rnjlq4ee2n4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGWi06hB2fWaHA7CQIUP5YCt7LySM1cq8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943977133492-ufoirr4d7cnnj0ah82gm2rnjlq4ee2n4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

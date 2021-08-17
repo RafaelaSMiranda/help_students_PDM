@@ -1,3 +1,4 @@
+// @dart=2.3
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/modulos/components/button_widget.dart';

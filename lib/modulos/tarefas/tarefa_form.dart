@@ -1,15 +1,12 @@
+// @dart=2.3
 import 'dart:async';
-
 import 'package:date_field/date_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:help_students/modulos/components/button_widget.dart';
-import 'package:help_students/modulos/components/snackBar_widget.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-
 import '../../providers/tarefa.dart';
 import '../../providers/tarefa_controle.dart';
 
@@ -21,7 +18,7 @@ class TarefaForm extends StatefulWidget {
 class _TarefaFormState extends State<TarefaForm> {
   String _materia = "";
   String _descricao = "";
-  DateTime _data = DateTime.now();
+  DateTime _data;
   final _form = GlobalKey<FormState>();
   final _formData = Map<String, Object>();
   bool _carregando = false;
@@ -189,6 +186,7 @@ class _TarefaFormState extends State<TarefaForm> {
                       child: Column(
                         children: <Widget>[
                           DateTimeFormField(
+                            initialValue: _formData['data'],
                             decoration: const InputDecoration(
                               hintStyle: TextStyle(color: Colors.black45),
                               errorStyle: TextStyle(color: Colors.redAccent),
@@ -198,12 +196,8 @@ class _TarefaFormState extends State<TarefaForm> {
                             ),
                             mode: DateTimeFieldPickerMode.dateAndTime,
                             autovalidateMode: AutovalidateMode.always,
-                            validator: (e) => (e?.day ?? 0) == 1
-                                ? 'Este não é o primeiro dia'
-                                : null,
                             onDateSelected: (DateTime value) {
                               _formData['data'] = value;
-                              print(value);
                             },
                           ),
                         ],

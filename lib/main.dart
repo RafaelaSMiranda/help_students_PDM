@@ -1,46 +1,44 @@
+// @dart=2.3
+import 'package:firebase_core/firebase_core.dart';
+import 'package:help_students/utils/app_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:help_students/modulos/Cadastro/cadastroPage.dart';
-import 'package:help_students/modulos/home/home_page.dart';
-import 'package:help_students/modulos/tarefas/tarefa_form.dart';
-import 'package:help_students/modulos/login/login_page.dart';
-import 'package:help_students/modulos/perfil/editar_perfil_page.dart';
-import 'package:help_students/modulos/splash/splash_page.dart';
-import 'package:help_students/modulos/tarefas/tarefa_list.dart';
-import 'package:help_students/providers/tarefa_controle.dart';
-import 'package:help_students/utils/app_routes.dart';
-import 'package:provider/provider.dart';
-import 'modulos/Cadastro/cadastroPage.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(AppFirebase());
 }
 
-class MyApp extends StatelessWidget {
+class AppFirebase extends StatefulWidget {
+  @override
+  _AppFirebaseState createState() => _AppFirebaseState();
+}
+
+class _AppFirebaseState extends State<AppFirebase> {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (_) => new TarefaControle(),
-          ),
-        ],
-        child: MaterialApp(
-            title: 'Help Students',
-            theme: ThemeData(
-              brightness: Brightness.light,
-              primarySwatch: Colors.green,
-              accentColor: Colors.green,
-              visualDensity: VisualDensity.adaptivePlatformDensity,
+    return FutureBuilder(
+      // Initialize FlutterFire:
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Material(
+            child: Center(
+              child: Text(
+                "Não foi possível iniciar o Firebase",
+                textDirection: TextDirection.ltr,
+              ),
             ),
-            initialRoute: "/splash",
-            routes: {
-              AppRoutes.SPLASH: (context) => SplashScreen(),
-              AppRoutes.LOGIN: (context) => LoginPage(),
-              AppRoutes.HOME: (context) => HomePage(),
-              AppRoutes.CADASTRO: (context) => CadastroPage(),
-              AppRoutes.CADASTRO_TAREFA: (context) => TarefaForm(),
-              AppRoutes.EDICAO: (context) => EditarPerfil(),
-              AppRoutes.LISTA_TAREFAS: (context) => ListaTarefas(),
-            }));
+          );
+        } else if (snapshot.connectionState == ConnectionState.done) {
+          return AppWidget();
+        } else {
+          return Material(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+      },
+    );
   }
 }

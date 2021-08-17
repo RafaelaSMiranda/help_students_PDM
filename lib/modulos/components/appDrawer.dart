@@ -1,9 +1,12 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
+import 'package:help_students/providers/usuario.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
-import 'package:help_students/shared/themes/app_images.dart';
-
 class AppDrawer extends StatelessWidget {
   @override
+  final Usuario _user;
+  AppDrawer(this._user);
+
   Widget build(BuildContext context) {
     return Drawer(
       elevation: 16.0,
@@ -13,13 +16,13 @@ class AppDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.primaryDrawer,
             ),
-            accountName: Text("Maria Clara"),
-            accountEmail: Text("mariaclara@gmail.com"),
+            accountName: Text(_user.name),
+            accountEmail: Text(_user.email),
             currentAccountPicture: CircleAvatar(
-              radius: 30.0,
               backgroundColor: Colors.transparent,
-              child: Image.asset(
-                AppImages.avatar,
+              child: Image.network(
+                _user.photoURL,
+                fit: BoxFit.cover,
               ),
             ),
           ),
