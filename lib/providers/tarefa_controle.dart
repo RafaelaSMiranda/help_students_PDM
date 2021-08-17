@@ -10,9 +10,8 @@ class TarefaControle with ChangeNotifier {
   final String _baseUrl = '${Constants.BASE_API_URL}/tarefas';
   List<Tarefa> _items = [];
   DateTime data = DateTime.now();
-
   List<Tarefa> get items => [..._items];
-
+  
   int get itemsCount {
     return _items.length;
   }
@@ -39,7 +38,6 @@ class TarefaControle with ChangeNotifier {
 
   Future<void> loadtarefas() async {
     final response = await http.get(Uri.parse("$_baseUrl.json"));
-    final date = DateTime.now();
     Map<String, dynamic> data = json.decode(response.body);
     _items.clear();
     if (data != null) {
@@ -58,7 +56,7 @@ class TarefaControle with ChangeNotifier {
 
   Future<void> addtarefa(Tarefa newtarefa) async {
     final response = await http.post(
-       Uri.parse("$_baseUrl.json"),
+      Uri.parse("$_baseUrl.json"),
       body: json.encode({
         'materia': newtarefa.materia,
         'descricao': newtarefa.descricao,
@@ -83,7 +81,7 @@ class TarefaControle with ChangeNotifier {
     final index = _items.indexWhere((task) => task.id == tarefa.id);
     if (index >= 0) {
       await http.patch(
-         Uri.parse("$_baseUrl/${tarefa.id}.json"),
+        Uri.parse("$_baseUrl/${tarefa.id}.json"),
         body: json.encode({
           'materia': tarefa.materia,
           'descricao': tarefa.descricao,
@@ -101,7 +99,8 @@ class TarefaControle with ChangeNotifier {
       final tarefa = _items[index];
       _items.remove(tarefa);
       notifyListeners();
-      final response = await http.delete(Uri.parse("$_baseUrl/${tarefa.id}.json"));
+      final response =
+          await http.delete(Uri.parse("$_baseUrl/${tarefa.id}.json"));
       if (response.statusCode >= 400) {
         _items.insert(index, tarefa);
         notifyListeners();

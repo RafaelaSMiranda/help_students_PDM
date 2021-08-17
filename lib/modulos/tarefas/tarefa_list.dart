@@ -1,9 +1,12 @@
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:help_students/modulos/components/appDrawer.dart';
 import 'package:help_students/modulos/components/button_widget.dart';
 import 'package:help_students/modulos/components/create_table.widget.dart';
 import 'package:help_students/modulos/components/input_text_widget.dart';
 import 'package:help_students/modulos/tarefas/tarefa_insert.dart';
+import 'package:help_students/providers/login_controle.dart';
 import 'package:help_students/providers/tarefa_controle.dart';
+import 'package:help_students/providers/usuario_controle.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';

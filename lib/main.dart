@@ -21,7 +21,6 @@ class _AppFirebaseState extends State<AppFirebase> {
       future: _initialization,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          print(snapshot);
           return Material(
             child: Center(
               child: Text(
