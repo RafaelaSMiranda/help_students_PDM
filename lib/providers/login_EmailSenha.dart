@@ -73,3 +73,9 @@ Future<User> signInWithEmailPassword(String email, String password) async {
 
   return null;
 }
+
+Future<String> SendPasswordResetEmail(String email) async {
+  print(email);
+  await _auth.sendPasswordResetEmail(email: email);
+  return "ok";
+}
