@@ -11,7 +11,7 @@ class TarefaControle with ChangeNotifier {
   List<Tarefa> _items = [];
   DateTime data = DateTime.now();
   List<Tarefa> get items => [..._items];
-  
+
   int get itemsCount {
     return _items.length;
   }

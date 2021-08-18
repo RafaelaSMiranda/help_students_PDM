@@ -1,7 +1,10 @@
 // @dart=2.9
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:help_students/modulos/login/login_page.dart';
 import 'package:help_students/providers/usuario.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
+
 class AppDrawer extends StatelessWidget {
   @override
   final Usuario _user;
@@ -57,7 +60,8 @@ class AppDrawer extends StatelessWidget {
             title: new Text("Sair"),
             leading: new Icon(Icons.logout_outlined),
             onTap: () {
-              // _sair(context);
+              FirebaseAuth.instance.signOut();
+              Navigator.pushNamed(context, '/login');
             },
           ),
         ],

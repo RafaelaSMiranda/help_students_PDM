@@ -87,7 +87,7 @@ class InserirTarefa extends StatelessWidget {
             tarefa.descricao +
                 "\n" +
                 "Data: " +
-                DateFormat('dd/MM/yyyy hh:mm').format(tarefa.data),
+                DateFormat('dd/MM/yyyy HH:mm').format(tarefa.data),
             style: TextStyles.descricao,
           ),
           trailing: Container(
