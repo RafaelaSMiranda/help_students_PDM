@@ -10,6 +10,7 @@ import 'package:help_students/providers/usuario_controle.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:help_students/shared/themes/app_images.dart';
 import 'package:help_students/utils/app_routes.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -47,6 +48,7 @@ class ListaTarefas extends StatelessWidget {
           itemCount: tarefasDados.itemsCount,
           itemBuilder: (ctx, i) => Column(
             children: <Widget>[
+             
               if (condicao == 'concluidas' && tarefas[i].concluido == true)
                 InserirTarefa(tarefas[i]),
               if (condicao == 'abertas' && tarefas[i].concluido == false)

@@ -11,7 +11,7 @@ class TarefaControle with ChangeNotifier {
   List<Tarefa> _items = [];
   DateTime data = DateTime.now();
   List<Tarefa> get items => [..._items];
-  
+
   int get itemsCount {
     return _items.length;
   }
@@ -106,6 +106,18 @@ class TarefaControle with ChangeNotifier {
         notifyListeners();
         throw HttpException('Ocorreu um erro na exclusão da tarefa.');
       }
+    }
+  }
+
+  Future<void> deleteTodasTarefas() async {
+    List<Tarefa> copyItens = _items;
+    _items.clear();
+    notifyListeners();
+    final response = await http.delete(Uri.parse("$_baseUrl.json"));
+    if (response.statusCode >= 400) {
+      _items = copyItens;
+      notifyListeners();
+      throw HttpException('Ocorreu um erro na exclusão de todas as tarefa.');
     }
   }
 }

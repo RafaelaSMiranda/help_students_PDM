@@ -1,6 +1,7 @@
 // @dart=2.3
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+
 class Tarefa with ChangeNotifier {
   final String id;
   final String materia;

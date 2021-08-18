@@ -19,7 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 //
 class HomePage extends StatelessWidget {
   get child => null;
-  final Usuario _user;
+  Usuario _user;
   HomePage(this._user);
 
   @override
@@ -203,44 +203,25 @@ class HomePage extends StatelessWidget {
 
 _sair(context) {
   {
-    Alert(
+    showDialog(
         context: context,
-        title: "Tem certeza que deseja sair?",
-        content: Padding(
-          padding: EdgeInsets.only(top: 30),
-          child: Column(
-            children: <Widget>[
-              ButtonWidget(
-                  label: "Sair",
+        builder: (ctx) => AlertDialog(
+              title: Text('Sair'),
+              content: Text('Tem certeza que deseja sair?'),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Não'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop(false);
+                  },
+                ),
+                TextButton(
+                  child: Text('Sim'),
                   onPressed: () {
                     Navigator.pushNamed(context, '/login');
-                  })
-            ],
-          ),
-        ),
-        buttons: []).show();
-  }
-}
-
-_removerTodasTarefas(context) {
-  {
-    AlertDialog(
-      title: Text('Remover tarefa'),
-      content: Text('Você tem certeza que deseja remover esta tarefa?'),
-      actions: <Widget>[
-        TextButton(
-          child: Text('Não'),
-          onPressed: () {
-            Navigator.of(context).pop(false);
-          },
-        ),
-        TextButton(
-          child: Text('Sim'),
-          onPressed: () {
-            Navigator.of(context).pop(true);
-          },
-        ),
-      ],
-    );
+                  },
+                ),
+              ],
+            ));
   }
 }
