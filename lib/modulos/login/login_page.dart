@@ -1,13 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:help_students/modulos/Cadastro/cadastroPage.dart';
 import 'package:help_students/modulos/EsqueciSenha/esqueciPage.dart';
 import 'package:help_students/modulos/components/button_widget.dart';
-import 'package:help_students/modulos/components/input_text_widget.dart';
-import 'package:help_students/modulos/components/social_login.dart';
+import 'package:help_students/modulos/home/home_page.dart';
+import 'package:help_students/providers/login_EmailSenha.dart';
 import 'package:help_students/providers/login_controle.dart';
-import 'package:help_students/shared/themes/app_colors.dart';
+import 'package:help_students/providers/usuario.dart';
+import 'package:help_students/providers/usuario_controle.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';
-import 'package:help_students/shared/themes/app_text_styles.dart';
 import 'package:help_students/utils/app_routes.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
+User userLogado;
 
 //
 class LoginPage extends StatefulWidget {
@@ -21,101 +26,216 @@ class _LoginPageState extends State<LoginPage> {
     final size = MediaQuery.of(context).size;
     final controller = LoginControle();
 
+    TextEditingController _email = TextEditingController();
+    TextEditingController _senha = TextEditingController();
+
     // PEGAR O TAMANHO DA TELA DO APARELHO
     return Scaffold(
       body: Container(
-        width: size.width,
-        height: size.height,
-        child: Stack(
-          children: [
-            Positioned(
-                top: 70,
-                left: 0,
-                right: 0,
-                child: Center(
-                    child:
-                        Image.asset(AppImages.logo, width: 350, height: 350))),
-            Positioned(
-              bottom: size.height * 0.50,
-              left: 0,
-              right: 0,
-              child: Column(
-                children: [
-                  Text(
-                    "Login",
-                    textAlign: TextAlign.center,
-                    style: TextStyles.login,
-                  ),
-                ],
-              ),
+        padding: EdgeInsets.only(top: 60, left: 40, right: 40),
+        color: Colors.white,
+        child: ListView(
+          children: <Widget>[
+            SizedBox(
+              width: 150,
+              height: 150,
+              child: Image.asset(AppImages.logo),
             ),
-            // Positioned(
-            //     bottom: size.height * 0.35,
-            //     left: 50,
-            //     right: 50,
-            //     child: Column(
-            //       children: [InputTextWidget(label: "Usuário", senha: false)],
-            //     )),
-            // Positioned(
-            //     bottom: size.height * 0.25,
-            //     left: 50,
-            //     right: 50,
-            //     child: Column(
-            //       children: [InputTextWidget(label: "Senha", senha: true)],
-            //     )),
-            // Positioned(
-            //     bottom: size.height * 0.15,
-            //     left: 50,
-            //     right: 50,
-            //     child: Column(
-            //       children: [
-            //         ButtonWidget(
-            //             label: "Entrar",
-            //             onPressed: () {
-            //               Navigator.pushNamed(context, '/home');
-            //             })
-            //       ],
-            //     )),
-            Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40, top: 40),
-              child: SocialLoginButton(
-                onTap: () {
-                  controller.googleSignIn(context);
+            SizedBox(
+              height: 20,
+            ),
+            TextFormField(
+              // autofocus: true,
+              controller: _email,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                labelText: "E-mail",
+                labelStyle: TextStyle(
+                  color: Colors.black38,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                ),
+              ),
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              // autofocus: true,
+              controller: _senha,
+              keyboardType: TextInputType.text,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: "Senha",
+                labelStyle: TextStyle(
+                  color: Colors.black38,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                ),
+              ),
+              style: TextStyle(fontSize: 20),
+            ),
+            Container(
+              height: 40,
+              alignment: Alignment.centerRight,
+              child: FlatButton(
+                child: Text(
+                  "Recuperar Senha",
+                  textAlign: TextAlign.right,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EsqueciPage(),
+                    ),
+                  );
                 },
               ),
             ),
-            Positioned(
-                bottom: size.height * 0.05,
-                left: 25,
-                right: 25,
-                child: Column(
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EsqueciPage()),
-                          );
-                        },
-                        child: Text("* Esqueci a Senha"))
+            SizedBox(
+              height: 40,
+            ),
+            Container(
+              height: 60,
+              alignment: Alignment.centerLeft,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [0.3, 1],
+                  colors: [
+                    Color(0xFF00875d),
+                    Color(0XFF3ab394),
                   ],
-                )),
-            Positioned(
-              bottom: size.height * 0.10,
-              left: 85,
-              right: 85,
-              child: TextButton(
-                  child: Text('+ Criar Conta'),
+                ),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5),
+                ),
+              ),
+              child: SizedBox.expand(
+                child: FlatButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        "Login",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      Container(
+                        child: SizedBox(
+                          child: Image.asset(AppImages.singin),
+                          height: 28,
+                          width: 28,
+                        ),
+                      )
+                    ],
+                  ),
+                  onPressed: () async {
+                    if (_email.text.isNotEmpty && _senha.text.isNotEmpty) {
+                      await signInWithEmailPassword(_email.text, _senha.text)
+                          .then((result) {
+                        print(result.uid);
+                        userLogado = result;
+
+                        Usuario inf;
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => HomePage(inf)),
+                        );
+                      }).catchError((error) {
+                        print("Erro no Login");
+                      });
+                    } else
+                      LoginErro(context);
+                  },
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 60,
+              alignment: Alignment.centerLeft,
+              decoration: BoxDecoration(
+                color: Color(0xFF000000),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5),
+                ),
+              ),
+              child: SizedBox.expand(
+                child: FlatButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        "Login com Google",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      Container(
+                        child: SizedBox(
+                          child: Image.asset(AppImages.google),
+                          height: 38,
+                          width: 38,
+                        ),
+                      )
+                    ],
+                  ),
                   onPressed: () {
-                    Navigator.of(context).pushReplacementNamed(
-                      AppRoutes.HOME,
-                    );
-                  }),
-            )
+                    controller.googleSignIn(context);
+                  },
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 40,
+              child: FlatButton(
+                child: Text(
+                  "Cadastre-se",
+                  textAlign: TextAlign.center,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CadastroPage(),
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+LoginErro(context) {
+  Alert(
+      context: context,
+      title: "Email ou Senha Vazios",
+      content: Padding(
+        padding: EdgeInsets.only(top: 30),
+        child: Column(
+          children: <Widget>[
+            ButtonWidget(label: "ok", onPressed: () => Navigator.pop(context))
+          ],
+        ),
+      ),
+      buttons: []).show();
 }

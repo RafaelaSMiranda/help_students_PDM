@@ -7,7 +7,6 @@ import 'package:help_students/shared/themes/app_images.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
 
 class EsqueciPage extends StatefulWidget {
-
   @override
   _EsqueciPageState createState() => _EsqueciPageState();
 }
@@ -24,7 +23,8 @@ class _EsqueciPageState extends State<EsqueciPage> {
         child: Stack(
           children: [
             Positioned(
-                top: 70,
+                bottom: size.height * 0.60,
+                top: 0,
                 left: 0,
                 right: 0,
                 child: Center(

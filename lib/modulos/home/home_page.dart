@@ -1,20 +1,16 @@
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:help_students/modulos/components/appDrawer.dart';
 import 'package:help_students/modulos/components/button_widget.dart';
 import 'package:help_students/modulos/tarefas/tarefa_list.dart';
-import 'package:help_students/providers/login_controle.dart';
-import 'package:help_students/providers/tarefa_controle.dart';
+import 'package:help_students/providers/sing_out.dart';
 import 'package:help_students/providers/usuario.dart';
-import 'package:help_students/providers/usuario_controle.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:help_students/utils/app_routes.dart';
-import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 //
 class HomePage extends StatelessWidget {
@@ -48,7 +44,7 @@ class HomePage extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Container(
-              height: size.height * 0.15,
+              height: size.height * 0.16,
               width: size.width,
               color: AppColors.primary,
             ),
@@ -56,21 +52,27 @@ class HomePage extends StatelessWidget {
               bottom: size.height * 0.76,
               child: Row(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15),
-                    child: Image.network(
-                      _user.photoURL,
-                      fit: BoxFit.cover,
-                    ),
+                  Container(
+                    height: 85,
+                    width: 10,
+                    color: AppColors.primary,
                   ),
                   Container(
-                    height: 80,
-                    width: 1,
+                      width: 85.0,
+                      height: 90.0,
+                      decoration: new BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: new DecorationImage(
+                              fit: BoxFit.fitHeight,
+                              image: new NetworkImage(_user.photoURL)))),
+                  Container(
+                    height: 90,
+                    width: 0,
                     color: Colors.grey[500],
                   ),
                   Column(children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 5, top: 10),
+                      padding: const EdgeInsets.only(left: 15, top: 10),
                       child: Text(
                         _user.name,
                         style: TextStyles.name,
@@ -90,13 +92,13 @@ class HomePage extends StatelessWidget {
             ),
             Positioned(
                 bottom: size.height * 0.65,
-                left: size.width * 0.1,
+                left: size.width * 0.12,
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
                     "Welcome to Help Students",
                     style: TextStyle(
-                      fontSize: 25.0,
+                      fontSize: 35.0,
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,
                     ),
@@ -104,19 +106,19 @@ class HomePage extends StatelessWidget {
                   ),
                 )),
             Positioned(
-              bottom: size.height * 0.38,
-              left: 70,
+              bottom: size.height * 0.37,
+              left: size.width * 0.3,
               child: FlatButton(
                   onPressed: () {
                     Navigator.of(context).pushNamed(AppRoutes.LISTA_TAREFAS);
                   },
                   padding: EdgeInsets.all(0.0),
                   child: Image.asset(AppImages.concluida,
-                      width: 300, height: 200)),
+                      width: 200, height: 200)),
             ),
             Positioned(
-                bottom: size.height * 0.35,
-                left: 150,
+                bottom: size.height * 0.38,
+                left: size.width * 0.35,
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
@@ -131,7 +133,7 @@ class HomePage extends StatelessWidget {
                 )),
             Positioned(
                 bottom: size.height * 0.15,
-                left: 80,
+                left: size.width * 0.20,
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
@@ -146,7 +148,7 @@ class HomePage extends StatelessWidget {
                 )),
             Positioned(
                 bottom: size.height * 0.15,
-                left: 280,
+                left: size.width * 0.65,
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
@@ -161,7 +163,7 @@ class HomePage extends StatelessWidget {
                 )),
             Positioned(
               bottom: size.height * 0.20,
-              left: 30,
+              left: size.width * 0.12,
               child: FlatButton(
                   onPressed: () {
                     Navigator.of(context).push(
@@ -174,7 +176,7 @@ class HomePage extends StatelessWidget {
             ),
             Positioned(
               bottom: size.height * 0.20,
-              left: 220,
+              left: size.width * 0.55,
               child: FlatButton(
                   onPressed: () {
                     Navigator.of(context).push(
@@ -218,6 +220,7 @@ _sair(context) {
                 TextButton(
                   child: Text('Sim'),
                   onPressed: () {
+                    Authentication.signOut();
                     Navigator.pushNamed(context, '/login');
                   },
                 ),

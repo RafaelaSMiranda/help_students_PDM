@@ -1,6 +1,8 @@
 // @dart=2.9
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/providers/tarefa_controle.dart';
+import 'package:help_students/modulos/login/login_page.dart';
 import 'package:help_students/providers/usuario.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:provider/provider.dart';
