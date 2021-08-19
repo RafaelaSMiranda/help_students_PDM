@@ -153,9 +153,10 @@ class _CadastroPageState extends State<CadastroPage> {
                           ],
                         ),
                         onPressed: () async {
-                          if ((validarEmail(_email.text) &&
-                                  validarSenha(_senha.text)) !=
-                              true) {
+                          if ((validarEmail(_email.text) != true ||
+                              validarSenha(_senha.text) != true ||
+                              _foto.text == "" ||
+                              _nome.text == "")) {
                             creatUserErro(context);
                           } else {
                             await registerWithEmailPassword(
@@ -230,7 +231,7 @@ creatUserErro(context) {
       context: context,
       builder: (ctx) => AlertDialog(
             title: Text('Erro'),
-            content: Text('Email iválido ou senha menor de 6 digitos'),
+            content: Text('Informe todos os campos.'),
             actions: <Widget>[
               TextButton(
                 child: Text('Ok'),
