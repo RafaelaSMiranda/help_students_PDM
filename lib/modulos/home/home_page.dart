@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:help_students/modulos/components/appDrawer.dart';
-import 'package:help_students/modulos/components/button_widget.dart';
 import 'package:help_students/modulos/tarefas/tarefa_list.dart';
 import 'package:help_students/providers/sing_out.dart';
 import 'package:help_students/providers/usuario.dart';
@@ -10,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:help_students/utils/app_routes.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 //
 class HomePage extends StatelessWidget {
@@ -98,7 +95,7 @@ class HomePage extends StatelessWidget {
                   child: Text(
                     "Welcome to Help Students",
                     style: TextStyle(
-                      fontSize: 35.0,
+                      fontSize: 25.0,
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,
                     ),

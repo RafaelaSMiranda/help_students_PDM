@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:help_students/modulos/Cadastro/cadastroPage.dart';
 import 'package:help_students/modulos/home/home_page.dart';
 import 'package:help_students/modulos/login/login_page.dart';
-import 'package:help_students/modulos/perfil/editar_perfil_page.dart';
 import 'package:help_students/modulos/splash/splash_page.dart';
 import 'package:help_students/modulos/tarefas/tarefa_form.dart';
 import 'package:help_students/modulos/tarefas/tarefa_list.dart';
@@ -45,7 +44,6 @@ class AppWidget extends StatelessWidget {
               AppRoutes.HOME: (context) => HomePage(_user),
               AppRoutes.CADASTRO: (context) => CadastroPage(),
               AppRoutes.CADASTRO_TAREFA: (context) => TarefaForm(),
-              AppRoutes.EDICAO: (context) => EditarPerfil(),
               AppRoutes.LISTA_TAREFAS: (context) => ListaTarefas('todas'),
             }));
   }

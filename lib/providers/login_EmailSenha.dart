@@ -8,7 +8,7 @@ bool authSignedIn;
 String uid;
 String userEmail;
 
-Future<String> registerWithEmailPassword(String email, String password) async {
+Future<User> registerWithEmailPassword(String email, String password) async {
   // Initialize Firebase
   await Firebase.initializeApp();
 
@@ -17,9 +17,7 @@ Future<String> registerWithEmailPassword(String email, String password) async {
     email: email,
     password: password,
   );
-
   final User user = userCredential.user;
-
   if (user != null) {
     // checking if uid or email is null
     assert(user.uid != null);
@@ -32,7 +30,7 @@ Future<String> registerWithEmailPassword(String email, String password) async {
     assert(await user.getIdToken() != null);
 
     print("Successfully registered, User UID: ${user.uid}");
-    return 'Successfully registered, User UID: ${user.uid}';
+    return user;
   }
 
   return null;
@@ -42,11 +40,8 @@ Future<User> signInWithEmailPassword(String email, String password) async {
   // Initialize Firebase
   await Firebase.initializeApp();
 
-  final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-    email: email,
-    password: password,
-  );
-
+  final UserCredential userCredential =
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
   final User user = userCredential.user;
 
   if (user != null) {
@@ -66,10 +61,12 @@ Future<User> signInWithEmailPassword(String email, String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('auth', true);
 
-    //print("Successfully registered, User UID: ${user.uid}");
-
+    print("Sucesso, User UID: ${user.uid}");
     return user;
   }
+}
 
-  return null;
+Future<String> SendPasswordResetEmail(String email) async {
+  await _auth.sendPasswordResetEmail(email: email);
+  return 'recuperado';
 }

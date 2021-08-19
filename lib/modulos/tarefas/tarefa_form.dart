@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:help_students/providers/usuario.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:help_students/shared/themes/app_text_styles.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../providers/tarefa.dart';
@@ -79,6 +79,7 @@ class _TarefaFormState extends State<TarefaForm> {
                 ' do curso ' +
                 _materia +
                 ' para o dia ' +
+                DateFormat('dd/MM/yyyy HH:mm').format(_data) +
                 ' foi atualizada com sucesso.'),
             backgroundColor: Colors.green[100],
           ),
@@ -93,6 +94,7 @@ class _TarefaFormState extends State<TarefaForm> {
                 ' do curso ' +
                 _materia +
                 ' para o dia ' +
+                DateFormat('dd/MM/yyyy HH:mm').format(_data) +
                 ' foi cadastrada com sucesso.'),
             backgroundColor: Colors.green[100],
           ),
@@ -117,7 +119,6 @@ class _TarefaFormState extends State<TarefaForm> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary,

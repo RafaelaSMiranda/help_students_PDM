@@ -5,7 +5,6 @@ import 'package:help_students/providers/tarefa_controle.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:help_students/shared/themes/app_images.dart';
 import 'package:help_students/utils/app_routes.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -63,121 +62,5 @@ class ListaTarefas extends StatelessWidget {
             );
           }),
     );
-  }
-}
-
-criarTitulo(String listaNomes) {
-  return TableRow(
-    children: listaNomes.split(',').map((name) {
-      return Container(
-        color: Colors.grey[300],
-        alignment: Alignment.center,
-        child: Text(name,
-            style: TextStyle(
-                fontSize: 18,
-                color: Colors.black,
-                fontWeight: FontWeight.bold)),
-        padding: EdgeInsets.all(10),
-      );
-    }).toList(),
-  );
-}
-
-criarLinha(String listaNomes, context) {
-  return TableRow(
-    children: listaNomes.split(',').map((name) {
-      if (name == "IconYellow") {
-        return new Padding(
-            padding: EdgeInsets.only(top: 20, bottom: 20),
-            child: Center(child: new Icon(Icons.circle, color: Colors.yellow)));
-      } else if (name == "IconGreen") {
-        return new Padding(
-            padding: EdgeInsets.only(top: 20, bottom: 20),
-            child: Center(child: new Icon(Icons.circle, color: Colors.green)));
-      } else if (name == "IconCheck") {
-        return new Padding(
-            padding: EdgeInsets.only(top: 20, bottom: 20),
-            child: Center(
-                child: new Icon(
-              Icons.check,
-              size: 30,
-            )));
-      } else {
-        return new Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Center(
-              child: ListTile(
-                title: new Text(name, style: TextStyle(fontSize: 12)),
-                onTap: () {},
-              ),
-            ));
-      }
-    }).toList(),
-  );
-}
-
-_createTarefa(context) {
-  {
-    Alert(
-        context: context,
-        title: "Nova tarefa",
-        content: Padding(
-          padding: EdgeInsets.only(top: 20),
-          child: Column(
-            children: <Widget>[
-              InputTextWidget(label: "Matéria", senha: false),
-              InputTextWidget(label: "Tarefa", senha: false),
-              InputTextWidget(label: "Data", senha: false),
-              ButtonWidget(
-                  label: "Cadastrar",
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/home');
-                  })
-            ],
-          ),
-        ),
-        buttons: []).show();
-  }
-}
-
-_sair(context) {
-  {
-    Alert(
-        context: context,
-        title: "Tem certeza que deseja sair?",
-        content: Padding(
-          padding: EdgeInsets.only(top: 30),
-          child: Column(
-            children: <Widget>[
-              ButtonWidget(
-                  label: "Sair",
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/login');
-                  })
-            ],
-          ),
-        ),
-        buttons: []).show();
-  }
-}
-
-_removerTodasTarefas(context) {
-  {
-    Alert(
-        context: context,
-        title: "Tem certeza que deseja remover todas as tarefas?",
-        content: Padding(
-          padding: EdgeInsets.only(top: 30),
-          child: Column(
-            children: <Widget>[
-              ButtonWidget(
-                  label: "Remover",
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/home');
-                  })
-            ],
-          ),
-        ),
-        buttons: []).show();
   }
 }

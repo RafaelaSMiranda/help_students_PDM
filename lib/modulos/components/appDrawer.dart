@@ -5,6 +5,7 @@ import 'package:help_students/providers/tarefa_controle.dart';
 import 'package:help_students/modulos/login/login_page.dart';
 import 'package:help_students/providers/usuario.dart';
 import 'package:help_students/shared/themes/app_colors.dart';
+import 'package:help_students/utils/app_routes.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -25,10 +26,14 @@ class AppDrawer extends StatelessWidget {
             accountEmail: Text(_user.email),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.transparent,
-              child: Image.network(
-                _user.photoURL,
-                fit: BoxFit.cover,
-              ),
+              child: Container(
+                  width: 85.0,
+                  height: 90.0,
+                  decoration: new BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: new DecorationImage(
+                          fit: BoxFit.fitHeight,
+                          image: new NetworkImage(_user.photoURL)))),
             ),
           ),
           ListTile(
@@ -78,7 +83,7 @@ _removerTodasTarefas(context) {
                     showDialog<Null>(
                       context: context,
                       builder: (ctx) => AlertDialog(
-                        title: Text('Tarefa removidas!'),
+                        title: Text('Tarefas removidas!'),
                         content: Text(
                             'Todas as tarefas foram removidas com sucesso.'),
                         backgroundColor: Colors.green[100],

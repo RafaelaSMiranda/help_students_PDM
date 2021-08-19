@@ -2,12 +2,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:help_students/modulos/components/button_widget.dart';
-import 'package:help_students/modulos/components/input_text_widget.dart';
 import 'package:help_students/modulos/login/login_page.dart';
 import 'package:help_students/providers/login_EmailSenha.dart';
 import 'package:help_students/shared/themes/app_images.dart';
-import 'package:provider/provider.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class CadastroPage extends StatefulWidget {
   @override
@@ -17,6 +14,8 @@ class CadastroPage extends StatefulWidget {
 class _CadastroPageState extends State<CadastroPage> {
   TextEditingController _email = TextEditingController();
   TextEditingController _senha = TextEditingController();
+  TextEditingController _nome = TextEditingController();
+  TextEditingController _foto = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,45 @@ class _CadastroPageState extends State<CadastroPage> {
                     child:
                         Image.asset(AppImages.logo, width: 250, height: 250))),
             Positioned(
+                bottom: size.height * 0.55,
+                left: 50,
+                right: 50,
+                child: Column(
+                  children: [
+                    TextFormField(
+                        controller: _nome,
+                        decoration: InputDecoration(
+                          labelText: "Nome",
+                          labelStyle: TextStyle(
+                            color: Colors.black38,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20,
+                          ),
+                        ),
+                        style: TextStyle(fontSize: 20))
+                  ],
+                )),
+            Positioned(
                 bottom: size.height * 0.45,
+                left: 50,
+                right: 50,
+                child: Column(
+                  children: [
+                    TextFormField(
+                        controller: _foto,
+                        decoration: InputDecoration(
+                          labelText: "URL foto",
+                          labelStyle: TextStyle(
+                            color: Colors.black38,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20,
+                          ),
+                        ),
+                        style: TextStyle(fontSize: 20))
+                  ],
+                )),
+            Positioned(
+                bottom: size.height * 0.35,
                 left: 50,
                 right: 50,
                 child: Column(
@@ -57,7 +94,7 @@ class _CadastroPageState extends State<CadastroPage> {
                   ],
                 )),
             Positioned(
-                bottom: size.height * 0.35,
+                bottom: size.height * 0.25,
                 left: 50,
                 right: 50,
                 child: Column(
@@ -79,27 +116,60 @@ class _CadastroPageState extends State<CadastroPage> {
                   ],
                 )),
             Positioned(
-                bottom: size.height * 0.15,
-                left: 50,
-                right: 50,
-                child: Column(
-                  children: [
-                    ButtonWidget(
-                        label: "Criar",
-                        onPressed: () {
+              bottom: size.height * 0.15,
+              left: 50,
+              right: 50,
+              child: Container(
+                height: 60,
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: [0.3, 1],
+                    colors: [
+                      Color(0xFF00875d),
+                      Color(0XFF3ab394),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                ),
+                child: SizedBox.expand(
+                    child: FlatButton(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              "Cadastrar",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ],
+                        ),
+                        onPressed: () async {
                           if ((validarEmail(_email.text) &&
                                   validarSenha(_senha.text)) !=
                               true) {
                             creatUserErro(context);
                           } else {
-                            Future<String> result = registerWithEmailPassword(
-                                _email.text, _senha.text);
+                            await registerWithEmailPassword(
+                                    _email.text, _senha.text)
+                                .then((result) {
+                              result.updateDisplayName(_nome.text);
+                              result.updatePhotoURL(_foto.text);
+                            });
 
                             creatUser(context);
                           }
-                        })
-                  ],
-                )),
+                        })),
+              ),
+            ),
             Positioned(
               bottom: size.height * 0.10,
               left: 50,
@@ -121,18 +191,14 @@ class _CadastroPageState extends State<CadastroPage> {
 }
 
 validarEmail(String email) {
-  print(email);
   if (email.length >= 10) {
-    print("certo");
     return true;
   } else {
-    print("errado");
     return false;
   }
 }
 
 validarSenha(String senha) {
-  print(senha);
   if (senha.length >= 6 &&
       !senha.contains(RegExp(r'\W')) &&
       RegExp(r'\d+\w*\d+').hasMatch(senha)) {
@@ -143,35 +209,35 @@ validarSenha(String senha) {
 }
 
 creatUser(context) {
-  Alert(
+  showDialog(
       context: context,
-      title: "Usuario Cadastrado com Sucesso",
-      content: Padding(
-        padding: EdgeInsets.only(top: 30),
-        child: Column(
-          children: <Widget>[
-            ButtonWidget(
-                label: "ok",
+      builder: (ctx) => AlertDialog(
+            title: Text('Cadastro'),
+            content: Text('Usuario cadastrado com cucesso'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Ok'),
                 onPressed: () {
                   Navigator.pushNamed(context, '/login');
-                })
-          ],
-        ),
-      ),
-      buttons: []).show();
+                },
+              ),
+            ],
+          ));
 }
 
 creatUserErro(context) {
-  Alert(
+  showDialog(
       context: context,
-      title: "Email Ivalido ou senha menor de 6 digitos",
-      content: Padding(
-        padding: EdgeInsets.only(top: 30),
-        child: Column(
-          children: <Widget>[
-            ButtonWidget(label: "ok", onPressed: () => Navigator.pop(context))
-          ],
-        ),
-      ),
-      buttons: []).show();
+      builder: (ctx) => AlertDialog(
+            title: Text('Erro'),
+            content: Text('Email iválido ou senha menor de 6 digitos'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+              ),
+            ],
+          ));
 }

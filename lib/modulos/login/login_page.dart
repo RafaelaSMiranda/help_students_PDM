@@ -1,16 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:help_students/modulos/Cadastro/cadastroPage.dart';
 import 'package:help_students/modulos/EsqueciSenha/esqueciPage.dart';
-import 'package:help_students/modulos/components/button_widget.dart';
 import 'package:help_students/modulos/home/home_page.dart';
 import 'package:help_students/providers/login_EmailSenha.dart';
 import 'package:help_students/providers/login_controle.dart';
 import 'package:help_students/providers/usuario.dart';
-import 'package:help_students/providers/usuario_controle.dart';
 import 'package:help_students/shared/themes/app_images.dart';
 import 'package:flutter/material.dart';
-import 'package:help_students/utils/app_routes.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 User userLogado;
 
@@ -28,8 +24,6 @@ class _LoginPageState extends State<LoginPage> {
 
     TextEditingController _email = TextEditingController();
     TextEditingController _senha = TextEditingController();
-
-    // PEGAR O TAMANHO DA TELA DO APARELHO
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(top: 60, left: 40, right: 40),
@@ -139,20 +133,24 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   onPressed: () async {
                     if (_email.text.isNotEmpty && _senha.text.isNotEmpty) {
-                      await signInWithEmailPassword(_email.text, _senha.text)
-                          .then((result) {
-                        print(result.uid);
+                      await signInWithEmailPassword(
+                        _email.text,
+                        _senha.text,
+                      ).then((result) {
                         userLogado = result;
-
-                        Usuario inf;
+                        final user = Usuario(
+                            name: userLogado.displayName,
+                            photoURL: userLogado.photoURL,
+                            id: userLogado.uid,
+                            email: userLogado.email);
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => HomePage(inf)),
+                          MaterialPageRoute(builder: (_) => HomePage(user)),
                         );
                       }).catchError((error) {
-                        print("Erro no Login");
+                        _falhaLogin(context);
                       });
                     } else
-                      LoginErro(context);
+                      _loginErro(context);
                   },
                 ),
               ),
@@ -225,17 +223,37 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-LoginErro(context) {
-  Alert(
+_loginErro(context) {
+  showDialog(
       context: context,
-      title: "Email ou Senha Vazios",
-      content: Padding(
-        padding: EdgeInsets.only(top: 30),
-        child: Column(
-          children: <Widget>[
-            ButtonWidget(label: "ok", onPressed: () => Navigator.pop(context))
-          ],
-        ),
-      ),
-      buttons: []).show();
+      builder: (ctx) => AlertDialog(
+            title: Text('Erro'),
+            content: Text('Email ou senha inválidos'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+              ),
+            ],
+          ));
+}
+
+_falhaLogin(context) {
+  showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+            title: Text('Ops!'),
+            content: Text(
+                'Desculpe, houve um erro. Provavelmente login e/ou senha incorretos.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+              ),
+            ],
+          ));
 }
